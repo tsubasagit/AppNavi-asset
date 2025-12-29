@@ -2,9 +2,9 @@ import { Asset } from '../types'
 
 export const mockAssets: Asset[] = [
   {
-    id: '1',
+    id: 'chart-graph',
     name: 'グラフコンポーネント Pro',
-    description: '高度なデータ可視化を実現するグラフコンポーネント。複数のグラフタイプに対応し、リアルタイム更新も可能です。',
+    description: '高度なデータ可視化を実現するグラフコンポーネント。複数のグラフタイプに対応し、リアルタイム更新も可能です。検索機能も内蔵されています。',
     type: 'plugin',
     category: 'UIコンポーネント',
     vendor: {
@@ -19,7 +19,7 @@ export const mockAssets: Asset[] = [
       'https://via.placeholder.com/800x600/667eea/ffffff?text=Graph+Component+Demo',
       'https://via.placeholder.com/800x600/764ba2/ffffff?text=Chart+Types'
     ],
-    demoUrl: './samples/plugins/chart-graph/preview.html',
+    demoUrl: '/samples/plugins/chart-graph/preview.html',
     readme: `
 # グラフコンポーネント Pro
 
@@ -72,6 +72,69 @@ MIT License
     updatedAt: '2024-01-15T00:00:00Z',
     githubUrl: 'https://github.com/example/graph-component',
     dependencies: ['react', 'chart.js']
+  },
+  {
+    id: 'search-bar',
+    name: '検索バープラグイン',
+    description: '高度な検索機能を提供するプラグイン。リアルタイム検索、フィルタリング、検索履歴に対応しています。',
+    type: 'plugin',
+    category: 'UIコンポーネント',
+    vendor: {
+      id: 'vendor1',
+      name: 'Tech Solutions Inc.',
+      avatar: 'https://ui-avatars.com/api/?name=Tech+Solutions'
+    },
+    version: '1.0.0',
+    price: 0,
+    priceType: 'free',
+    screenshots: [
+      'https://via.placeholder.com/800x600/667eea/ffffff?text=Search+Bar+Plugin'
+    ],
+    demoUrl: '/samples/plugins/search-bar/preview.html',
+    readme: `
+# 検索バープラグイン
+
+## 概要
+高度な検索機能を提供するAppNaviプラグインです。
+
+## 機能
+- 🔍 リアルタイム検索
+- 📚 検索履歴
+- ⚡ デバウンス機能
+- 🎯 複数フィールド検索
+
+## 使用方法
+
+\`\`\`tsx
+import { SearchBarPlugin } from '@appnavi/search-bar-plugin'
+
+<SearchBarPlugin
+  placeholder="検索..."
+  showHistory={true}
+  data={sampleData}
+/>
+\`\`\`
+
+## ライセンス
+MIT License
+    `,
+    tags: ['検索', 'フィルタリング', 'UI', 'React'],
+    downloads: 890,
+    rating: 4.8,
+    reviews: [
+      {
+        id: 'review-search1',
+        userId: 'user1',
+        userName: '田中太郎',
+        rating: 5,
+        comment: '非常に使いやすく、検索履歴機能が便利です！',
+        createdAt: '2024-02-01T09:00:00Z'
+      }
+    ],
+    createdAt: '2024-01-10T00:00:00Z',
+    updatedAt: '2024-02-01T00:00:00Z',
+    githubUrl: 'https://github.com/example/search-bar-plugin',
+    dependencies: ['react']
   },
   {
     id: '2',
@@ -129,9 +192,9 @@ MIT License
     dependencies: ['axios']
   },
   {
-    id: '3',
-    name: 'ECサイトテンプレート',
-    description: 'ECサイト構築用の完全なテンプレート。商品管理、カート、決済機能まで含まれています。',
+    id: 'dashboard',
+    name: 'ダッシュボードテンプレート',
+    description: '包括的なダッシュボードテンプレート。統計カード、グラフ、検索機能、データテーブルを含む完全なダッシュボードです。',
     type: 'template',
     category: 'テンプレート',
     vendor: {
@@ -143,36 +206,89 @@ MIT License
     price: 30000,
     priceType: 'one-time',
     screenshots: [
-      'https://via.placeholder.com/800x600/f56565/ffffff?text=EC+Site+Template',
-      'https://via.placeholder.com/800x600/ed8936/ffffff?text=Product+Page',
-      'https://via.placeholder.com/800x600/38b2ac/ffffff?text=Checkout'
+      'https://via.placeholder.com/800x600/667eea/ffffff?text=Dashboard+Template',
+      'https://via.placeholder.com/800x600/764ba2/ffffff?text=Statistics+Cards'
     ],
+    demoUrl: '/samples/templates/dashboard/preview.html',
     readme: `
-# ECサイトテンプレート
+# ダッシュボードテンプレート
 
 ## 概要
-ECサイト構築用の完全なテンプレートです。
+包括的なダッシュボードテンプレートです。
 
 ## 含まれる機能
-- 商品一覧・詳細ページ
-- ショッピングカート
-- 決済機能
-- ユーザー管理
-- 注文管理
+- 📊 統計カード（4つの主要指標）
+- 🔍 検索機能付きデータテーブル
+- 📈 グラフ表示エリア
+- 📱 レスポンシブデザイン
 
 ## セットアップ
 
 テンプレートをインポートして、すぐに使用を開始できます。
 
 ## ライセンス
-商用利用可
+MIT License
     `,
-    tags: ['ECサイト', 'テンプレート', 'eコマース', 'ショッピングカート'],
+    tags: ['ダッシュボード', 'テンプレート', '統計', 'データ可視化'],
     downloads: 234,
     rating: 4.2,
     reviews: [],
     createdAt: '2024-01-05T00:00:00Z',
     updatedAt: '2024-01-05T00:00:00Z'
+  },
+  {
+    id: 'form-builder',
+    name: 'フォームビルダーテンプレート',
+    description: '動的なフォーム作成テンプレート。検索機能、バリデーション、リアルタイムプレビューを含む完全なフォームビルダーです。',
+    type: 'template',
+    category: 'テンプレート',
+    vendor: {
+      id: 'vendor1',
+      name: 'Tech Solutions Inc.',
+      avatar: 'https://ui-avatars.com/api/?name=Tech+Solutions'
+    },
+    version: '1.0.0',
+    price: 0,
+    priceType: 'free',
+    screenshots: [
+      'https://via.placeholder.com/800x600/48bb78/ffffff?text=Form+Builder+Template'
+    ],
+    demoUrl: '/samples/templates/form-builder/preview.html',
+    readme: `
+# フォームビルダーテンプレート
+
+## 概要
+動的なフォーム作成テンプレートです。
+
+## 含まれる機能
+- 🏗️ 動的フォーム生成
+- 🔍 フィールド検索機能
+- 👁️ リアルタイムプレビュー
+- ✅ バリデーション対応
+- 📝 複数のフィールドタイプ
+
+## セットアップ
+
+テンプレートをインポートして、すぐに使用を開始できます。
+
+## ライセンス
+MIT License
+    `,
+    tags: ['フォーム', 'テンプレート', 'ビルダー', 'バリデーション'],
+    downloads: 567,
+    rating: 4.6,
+    reviews: [
+      {
+        id: 'review-form1',
+        userId: 'user2',
+        userName: '佐藤花子',
+        rating: 5,
+        comment: 'フォーム作成が非常に簡単になりました！',
+        createdAt: '2024-02-05T10:00:00Z'
+      }
+    ],
+    createdAt: '2024-01-15T00:00:00Z',
+    updatedAt: '2024-02-05T00:00:00Z'
   }
 ]
 
