@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { 
   ArrowLeft, Star, Download, ExternalLink, Github, 
-  CheckCircle, AlertCircle, Package, FileText 
+  CheckCircle, AlertCircle, Package, FileText, Eye
 } from 'lucide-react'
 import { Asset } from '../types'
 import { mockAssets } from '../data/mockData'
+import PreviewModal from '../components/PreviewModal'
 import './AssetDetail.css'
 
 export default function AssetDetail() {
@@ -13,6 +14,7 @@ export default function AssetDetail() {
   const navigate = useNavigate()
   const [asset, setAsset] = useState<Asset | null>(null)
   const [isInstalling, setIsInstalling] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
 
   useEffect(() => {
     // 実際の実装ではAPIから取得
@@ -98,14 +100,23 @@ export default function AssetDetail() {
               </span>
             )}
           </div>
-          <button 
-            className="install-button"
-            onClick={handleInstall}
-            disabled={isInstalling}
-          >
-            {isInstalling ? 'インストール中...' : 'インストール'}
-            <Download size={18} />
-          </button>
+          <div className="action-buttons">
+            <button 
+              className="preview-button"
+              onClick={() => setShowPreview(true)}
+            >
+              <Eye size={18} />
+              プレビュー
+            </button>
+            <button 
+              className="install-button"
+              onClick={handleInstall}
+              disabled={isInstalling}
+            >
+              {isInstalling ? 'インストール中...' : 'インストール'}
+              <Download size={18} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -249,6 +260,12 @@ export default function AssetDetail() {
           )}
         </div>
       </div>
+
+      <PreviewModal
+        asset={asset}
+        isOpen={showPreview}
+        onClose={() => setShowPreview(false)}
+      />
     </div>
   )
 }

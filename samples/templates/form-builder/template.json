@@ -1,0 +1,25 @@
+{
+  "id": "form-builder-template",
+  "name": "フォームビルダーテンプレート",
+  "version": "1.0.0",
+  "description": "動的なフォーム作成テンプレート。検索機能、バリデーション、リアルタイムプレビューを含む完全なフォームビルダーです。",
+  "type": "template",
+  "category": "テンプレート",
+  "author": {
+    "name": "Tech Solutions Inc.",
+    "email": "contact@techsolutions.com"
+  },
+  "entry": "./FormBuilderTemplate.tsx",
+  "preview": "./preview.html",
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "features": [
+    "動的フォーム生成",
+    "検索機能",
+    "バリデーション",
+    "リアルタイムプレビュー",
+    "レスポンシブデザイン"
+  ]
+}
+

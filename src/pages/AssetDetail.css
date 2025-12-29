@@ -365,6 +365,33 @@
   font-size: 1rem;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.preview-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.preview-button:hover {
+  background: #667eea;
+  color: white;
+}
+
+
 @media (max-width: 968px) {
   .asset-detail-content {
     grid-template-columns: 1fr;
@@ -376,6 +403,27 @@
 
   .asset-detail-actions {
     align-items: flex-start;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .preview-button,
+  .install-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .preview-modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .preview-modal-overlay {
+    padding: 0;
   }
 }
 

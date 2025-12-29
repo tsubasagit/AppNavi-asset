@@ -1,0 +1,43 @@
+{
+  "id": "chart-graph-plugin",
+  "name": "グラフコンポーネント Pro",
+  "version": "1.2.0",
+  "description": "高度なデータ可視化を実現するグラフコンポーネント。複数のグラフタイプに対応し、リアルタイム更新も可能です。",
+  "type": "plugin",
+  "category": "UIコンポーネント",
+  "author": {
+    "name": "Tech Solutions Inc.",
+    "email": "contact@techsolutions.com"
+  },
+  "entry": "./ChartGraphPlugin.tsx",
+  "preview": "./preview.html",
+  "dependencies": {
+    "react": "^18.2.0",
+    "chart.js": "^4.4.0",
+    "react-chartjs-2": "^5.2.0"
+  },
+  "props": {
+    "type": {
+      "type": "string",
+      "default": "line",
+      "options": ["line", "bar", "pie", "doughnut", "radar"],
+      "description": "グラフのタイプ"
+    },
+    "data": {
+      "type": "object",
+      "required": true,
+      "description": "グラフデータ"
+    },
+    "options": {
+      "type": "object",
+      "default": {},
+      "description": "Chart.jsのオプション"
+    },
+    "height": {
+      "type": "number",
+      "default": 400,
+      "description": "グラフの高さ（ピクセル）"
+    }
+  }
+}
+

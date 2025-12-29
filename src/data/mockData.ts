@@ -19,7 +19,7 @@ export const mockAssets: Asset[] = [
       'https://via.placeholder.com/800x600/667eea/ffffff?text=Graph+Component+Demo',
       'https://via.placeholder.com/800x600/764ba2/ffffff?text=Chart+Types'
     ],
-    demoUrl: 'https://example.com/demo/graph',
+    demoUrl: './samples/plugins/chart-graph/preview.html',
     readme: `
 # グラフコンポーネント Pro
 

@@ -1,0 +1,26 @@
+{
+  "id": "dashboard-template",
+  "name": "ダッシュボードテンプレート",
+  "version": "1.0.0",
+  "description": "包括的なダッシュボードテンプレート。統計カード、グラフ、検索機能、データテーブルを含む完全なダッシュボードです。",
+  "type": "template",
+  "category": "テンプレート",
+  "author": {
+    "name": "Tech Solutions Inc.",
+    "email": "contact@techsolutions.com"
+  },
+  "entry": "./DashboardTemplate.tsx",
+  "preview": "./preview.html",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-router-dom": "^6.20.0"
+  },
+  "features": [
+    "統計カード",
+    "グラフ表示",
+    "検索機能",
+    "データテーブル",
+    "レスポンシブデザイン"
+  ]
+}
+

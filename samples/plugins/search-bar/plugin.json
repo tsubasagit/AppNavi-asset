@@ -1,0 +1,35 @@
+{
+  "id": "search-bar-plugin",
+  "name": "検索バープラグイン",
+  "version": "1.0.0",
+  "description": "高度な検索機能を提供するプラグイン。リアルタイム検索、フィルタリング、検索履歴に対応しています。",
+  "type": "plugin",
+  "category": "UIコンポーネント",
+  "author": {
+    "name": "Tech Solutions Inc.",
+    "email": "contact@techsolutions.com"
+  },
+  "entry": "./SearchBarPlugin.tsx",
+  "preview": "./preview.html",
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "props": {
+    "placeholder": {
+      "type": "string",
+      "default": "検索...",
+      "description": "検索バーのプレースホルダーテキスト"
+    },
+    "showHistory": {
+      "type": "boolean",
+      "default": true,
+      "description": "検索履歴を表示するか"
+    },
+    "debounceMs": {
+      "type": "number",
+      "default": 300,
+      "description": "検索のデバウンス時間（ミリ秒）"
+    }
+  }
+}
+
