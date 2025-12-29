@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Search, Filter, Star, Download, Package, FileText } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Search, Filter, Star, Download, Package, FileText, Eye } from 'lucide-react'
 import { Asset } from '../types'
 import { mockAssets } from '../data/mockData'
+import PreviewModal from '../components/PreviewModal'
 import './Marketplace.css'
 
 export default function Marketplace() {
+  const navigate = useNavigate()
   const [assets, setAssets] = useState<Asset[]>([])
   const [filteredAssets, setFilteredAssets] = useState<Asset[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [selectedType, setSelectedType] = useState<'all' | 'plugin' | 'template'>('all')
+  const [previewAsset, setPreviewAsset] = useState<Asset | null>(null)
+  const [showPreview, setShowPreview] = useState(false)
 
   useEffect(() => {
     // 実際の実装ではAPIから取得
@@ -123,14 +127,40 @@ export default function Marketplace() {
                   </div>
                 </div>
               </div>
-              <div className="asset-card-price">
-                {asset.priceType === 'free' ? (
-                  <span className="price-free">無料</span>
-                ) : asset.priceType === 'one-time' ? (
-                  <span className="price-paid">¥{asset.price.toLocaleString()}</span>
-                ) : (
-                  <span className="price-subscription">¥{asset.price.toLocaleString()}/月</span>
-                )}
+              <div className="asset-card-footer">
+                <div className="asset-card-price">
+                  {asset.priceType === 'free' ? (
+                    <span className="price-free">無料</span>
+                  ) : asset.priceType === 'one-time' ? (
+                    <span className="price-paid">¥{asset.price.toLocaleString()}</span>
+                  ) : (
+                    <span className="price-subscription">¥{asset.price.toLocaleString()}/月</span>
+                  )}
+                </div>
+                <div className="asset-card-actions">
+                  <button
+                    className="preview-card-button"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      setPreviewAsset(asset)
+                      setShowPreview(true)
+                    }}
+                    title="プレビュー"
+                  >
+                    <Eye size={16} />
+                  </button>
+                  <button
+                    className="view-details-button"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      navigate(`/asset/${asset.id}`)
+                    }}
+                    title="詳細を見る"
+                  >
+                    詳細
+                  </button>
+                </div>
               </div>
             </div>
           </Link>
@@ -141,6 +171,17 @@ export default function Marketplace() {
         <div className="no-results">
           <p>検索結果が見つかりませんでした</p>
         </div>
+      )}
+
+      {previewAsset && (
+        <PreviewModal
+          asset={previewAsset}
+          isOpen={showPreview}
+          onClose={() => {
+            setShowPreview(false)
+            setPreviewAsset(null)
+          }}
+        />
       )}
     </div>
   )

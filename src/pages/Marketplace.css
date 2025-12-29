@@ -168,9 +168,16 @@
   color: #718096;
 }
 
-.asset-card-price {
+.asset-card-footer {
   padding-top: 1rem;
   border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.asset-card-price {
+  flex: 1;
 }
 
 .price-free {
@@ -184,6 +191,46 @@
   color: #667eea;
   font-weight: 600;
   font-size: 1.1rem;
+}
+
+.asset-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.preview-card-button {
+  background: #edf2f7;
+  border: none;
+  color: #667eea;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.preview-card-button:hover {
+  background: #667eea;
+  color: white;
+}
+
+.view-details-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.view-details-button:hover {
+  opacity: 0.9;
 }
 
 .no-results {
