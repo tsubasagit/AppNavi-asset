@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages (Simple)
 
 on:
   push:
@@ -40,12 +40,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Copy templates to dist
+      - name: Prepare deployment
         run: |
+          # distディレクトリにtemplatesをコピー
           mkdir -p dist/templates
           cp -r templates/* dist/templates/
-          # テンプレートサーバーのindex.htmlもルートにコピー
-          cp templates/index.html dist/templates-index.html
+          # テンプレートサーバーのindex.htmlをルートにも配置
+          cp templates/index.html dist/templates.html
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

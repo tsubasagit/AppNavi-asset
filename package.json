@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "deploy:pages": "npm run build && npm run copy:templates",
-    "copy:templates": "mkdir -p dist/templates && cp -r templates/* dist/templates/"
+    "copy:templates": "mkdir -p dist/templates && cp -r templates/* dist/templates/",
+    "build:all": "npm run build && npm run copy:templates"
   },
   "dependencies": {
     "react": "^18.2.0",
