@@ -114,7 +114,417 @@
     .back-link:hover {
       text-decoration: underline;
     }
+    
+    /* タブスタイル */
+    .preview-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    .tab-button {
+      background: none;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      color: #718096;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    
+    .tab-button:hover {
+      color: #8b5cf6;
+    }
+    
+    .tab-button.active {
+      color: #8b5cf6;
+      border-bottom-color: #8b5cf6;
+      font-weight: 600;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    /* ダッシュボードモックアップ */
+    .dashboard-mockup {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .mockup-header {
+      margin-bottom: 1.5rem;
+    }
+    
+    .mockup-header h3 {
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+    
+    .mockup-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .stat-box {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #8b5cf6;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      color: #718096;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2d3748;
+    }
+    
+    .mockup-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .mockup-kanban,
+    .mockup-table {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    
+    .mockup-kanban h4,
+    .mockup-table h4 {
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+    
+    .kanban-columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    
+    .kanban-column {
+      background: #f7fafc;
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+    
+    .column-header {
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+    
+    .kanban-card {
+      background: white;
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #2d3748;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mockup-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    
+    .mockup-table th,
+    .mockup-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .mockup-table th {
+      background: #f7fafc;
+      font-weight: 600;
+      color: #4a5568;
+    }
+    
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .badge-purple {
+      background: #ede9fe;
+      color: #7c3aed;
+    }
+    
+    .badge-blue {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+    
+    .badge-green {
+      background: #d1fae5;
+      color: #059669;
+    }
+    
+    /* デザイン仕様 */
+    .design-specs {
+      margin-top: 1rem;
+    }
+    
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .color-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .color-swatch {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .color-info {
+      flex: 1;
+    }
+    
+    .color-name {
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 0.25rem;
+    }
+    
+    .color-code {
+      font-family: monospace;
+      color: #718096;
+      font-size: 0.9rem;
+    }
+    
+    .layout-diagram {
+      margin-top: 1rem;
+    }
+    
+    .layout-box {
+      background: #e2e8f0;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      color: #4a5568;
+      font-weight: 600;
+    }
+    
+    .header-box {
+      background: #8b5cf6;
+      color: white;
+    }
+    
+    .layout-container {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0.5rem;
+    }
+    
+    .sidebar-box {
+      background: #cbd5e0;
+    }
+    
+    .layout-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .stats-box {
+      background: #edf2f7;
+    }
+    
+    .content-box {
+      background: #f7fafc;
+    }
+    
+    .components-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .component-item {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid #8b5cf6;
+    }
+    
+    .component-item strong {
+      display: block;
+      color: #2d3748;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .component-item p {
+      color: #4a5568;
+      line-height: 1.6;
+    }
+    
+    /* データベース構造 */
+    .database-schema {
+      margin-top: 1rem;
+    }
+    
+    .schema-diagram {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .table-box {
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+      overflow: hidden;
+    }
+    
+    .table-header {
+      background: #8b5cf6;
+      color: white;
+      padding: 1rem;
+      font-weight: 600;
+    }
+    
+    .table-fields {
+      padding: 1rem;
+    }
+    
+    .field {
+      padding: 0.5rem;
+      border-bottom: 1px solid #f7fafc;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: #4a5568;
+    }
+    
+    .field.primary {
+      color: #8b5cf6;
+      font-weight: 600;
+    }
+    
+    .field.foreign {
+      color: #f97316;
+      font-weight: 600;
+    }
+    
+    .relationships {
+      margin-top: 2rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    
+    .relationships h4 {
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+    
+    .relationships ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .relationships li {
+      padding: 0.75rem;
+      background: #f7fafc;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      color: #4a5568;
+    }
+    
+    .sample-data {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    
+    .sample-data h4 {
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+    
+    .sample-data pre {
+      background: #2d3748;
+      color: #f7fafc;
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 968px) {
+      .mockup-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .kanban-columns {
+        grid-template-columns: 1fr;
+      }
+      
+      .layout-container {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
+  <script>
+    function showTab(tabName) {
+      // すべてのタブコンテンツを非表示
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active')
+      })
+      
+      // すべてのタブボタンからactiveクラスを削除
+      document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active')
+      })
+      
+      // 選択されたタブを表示
+      document.getElementById(tabName + '-tab').classList.add('active')
+      
+      // 選択されたボタンにactiveクラスを追加
+      event.target.classList.add('active')
+    }
+  </script>
 </head>
 <body>
   <div class="header">
