@@ -238,3 +238,5 @@ export const SearchBarPlugin: React.FC<SearchBarPluginProps> = ({
 
 export default SearchBarPlugin
 
+
+
