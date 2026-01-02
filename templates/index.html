@@ -231,6 +231,16 @@
         return
       }
       
+      if (!templates || templates.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2rem; color: white;">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">AppNavi プラグインマーケットプレイス</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9;">テンプレートが見つかりませんでした</p>
+          </div>
+        `
+        return
+      }
+      
       container.className = 'templates-grid'
       
       const colorMap = {
