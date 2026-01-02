@@ -78,3 +78,4 @@ VITE_TEMPLATE_SERVER_URL=https://your-deployed-url.com
 
 詳細な構築手順については、[BUILD_INSTRUCTIONS.md](./BUILD_INSTRUCTIONS.md)を参照してください。
 
+

@@ -128,22 +128,106 @@
   </div>
   
   <script>
+    // テンプレートデータ（フォールバック用）
+    const TEMPLATES_DATA = {
+      "templates": [
+        {
+          "templateId": "crm",
+          "name": "顧客管理（CRM）",
+          "description": "顧客情報、商談管理、活動履歴を一元管理",
+          "category": "営業・マーケティング",
+          "color": "purple",
+          "demoUrl": "templates/crm/",
+          "tags": ["営業", "顧客管理", "商談", "CRM"]
+        },
+        {
+          "templateId": "google-calendar-group",
+          "name": "Googleカレンダーのグループ化",
+          "description": "複数のGoogleカレンダーを統合し、グループ別に管理・表示",
+          "category": "スケジュール管理",
+          "color": "orange",
+          "demoUrl": "templates/google-calendar-group/",
+          "tags": ["カレンダー", "スケジュール", "Google", "グループ管理"]
+        },
+        {
+          "templateId": "daily-report",
+          "name": "日報チェック",
+          "description": "日々の業務活動の記録とチェック、自動連携",
+          "category": "業務管理",
+          "color": "green",
+          "demoUrl": "templates/daily-report/",
+          "tags": ["日報", "活動報告", "チェック", "業務管理"]
+        },
+        {
+          "templateId": "auto-integration",
+          "name": "自動連携",
+          "description": "各種サービスとの自動連携とデータ同期",
+          "category": "連携・統合",
+          "color": "blue",
+          "demoUrl": "templates/auto-integration/",
+          "tags": ["連携", "統合", "自動化", "データ同期"]
+        }
+      ]
+    }
+    
+    // ページ読み込み時に実行
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, loading templates...')
+        // 即座にフォールバックデータを表示（APIが失敗しても表示される）
+        renderTemplates(TEMPLATES_DATA.templates)
+        // その後、APIから最新データを取得を試みる
+        loadTemplates()
+      })
+    } else {
+      // DOMが既に読み込まれている場合
+      console.log('DOM already loaded, loading templates...')
+      renderTemplates(TEMPLATES_DATA.templates)
+      loadTemplates()
+    }
+    
     // テンプレートデータを取得
     async function loadTemplates() {
+      const container = document.getElementById('templates-container')
+      if (!container) {
+        console.error('templates-container要素が見つかりません')
+        return
+      }
+      
       try {
-        const response = await fetch('/api/templates.json')
+        // 相対パスを現在のディレクトリ基準に修正
+        let basePath = window.location.pathname
+        if (!basePath.endsWith('/')) {
+          basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1)
+        }
+        const apiPath = basePath + 'api/templates.json'
+        console.log('Fetching from:', apiPath)
+        
+        const response = await fetch(apiPath)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
         const data = await response.json()
-        renderTemplates(data.templates)
+        console.log('Templates loaded from API:', data)
+        // APIから取得できた場合は、最新データで更新
+        if (data && data.templates && data.templates.length > 0) {
+          renderTemplates(data.templates)
+        }
       } catch (error) {
-        console.error('テンプレートの読み込みエラー:', error)
-        document.getElementById('templates-container').innerHTML = 
-          '<div class="loading">テンプレートの読み込みに失敗しました</div>'
+        console.warn('APIからの読み込みに失敗、フォールバックデータを使用:', error)
+        // フォールバック: 埋め込まれたデータを使用
+        renderTemplates(TEMPLATES_DATA.templates)
       }
     }
     
     // テンプレートを表示
     function renderTemplates(templates) {
       const container = document.getElementById('templates-container')
+      if (!container) {
+        console.error('templates-container要素が見つかりません')
+        return
+      }
+      
       container.className = 'templates-grid'
       
       const colorMap = {
@@ -160,12 +244,18 @@
         'auto-integration': '🔄',
       }
       
+      let basePath = window.location.pathname
+      if (!basePath.endsWith('/')) {
+        basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1)
+      }
+      
       container.innerHTML = templates.map(template => {
         const color = colorMap[template.color] || { bg: '#6b7280', text: '#fff' }
         const icon = iconMap[template.templateId] || '📦'
+        const demoPath = template.demoUrl || basePath + `templates/${template.templateId}/`
         
         return `
-          <a href="${template.demoUrl || `/templates/${template.templateId}/`}" class="template-card">
+          <a href="${demoPath}" class="template-card">
             <div class="template-icon" style="background: ${color.bg}; color: ${color.text};">
               ${icon}
             </div>
@@ -179,9 +269,6 @@
         `
       }).join('')
     }
-    
-    // ページ読み込み時にテンプレートを取得
-    loadTemplates()
   </script>
 </body>
 </html>

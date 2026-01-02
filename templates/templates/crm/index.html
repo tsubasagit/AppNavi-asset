@@ -178,9 +178,260 @@
     </div>
     
     <div class="section">
-      <h2>プレビュー</h2>
-      <img src="/templates/crm/preview.png" alt="CRMテンプレートのプレビュー" class="preview-image" onerror="this.style.display='none'">
-      <p style="margin-top: 1rem; color: #718096;">プレビュー画像は準備中です。</p>
+      <h2>ダッシュボードプレビュー</h2>
+      <div class="dashboard-preview">
+        <div class="preview-tabs">
+          <button class="tab-button active" onclick="showTab('dashboard')">ダッシュボード</button>
+          <button class="tab-button" onclick="showTab('design')">デザイン</button>
+          <button class="tab-button" onclick="showTab('database')">データベース</button>
+        </div>
+        
+        <div id="dashboard-tab" class="tab-content active">
+          <div class="dashboard-mockup">
+            <div class="mockup-header">
+              <h3>営業ダッシュボード</h3>
+              <div class="mockup-stats">
+                <div class="stat-box">
+                  <div class="stat-label">総顧客数</div>
+                  <div class="stat-value">1,234</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-label">新規リード</div>
+                  <div class="stat-value">45</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-label">商談数</div>
+                  <div class="stat-value">89</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-label">成約率</div>
+                  <div class="stat-value">23.4%</div>
+                </div>
+              </div>
+            </div>
+            <div class="mockup-content">
+              <div class="mockup-kanban">
+                <h4>商談パイプライン</h4>
+                <div class="kanban-columns">
+                  <div class="kanban-column">
+                    <div class="column-header">見込み (12)</div>
+                    <div class="kanban-card">株式会社ABC</div>
+                    <div class="kanban-card">XYZ商事</div>
+                  </div>
+                  <div class="kanban-column">
+                    <div class="column-header">商談中 (8)</div>
+                    <div class="kanban-card">DEF工業</div>
+                    <div class="kanban-card">GHI株式会社</div>
+                  </div>
+                  <div class="kanban-column">
+                    <div class="column-header">提案中 (5)</div>
+                    <div class="kanban-card">JKL企業</div>
+                  </div>
+                  <div class="kanban-column">
+                    <div class="column-header">成約 (3)</div>
+                    <div class="kanban-card">MNO商事</div>
+                  </div>
+                </div>
+              </div>
+              <div class="mockup-table">
+                <h4>顧客一覧</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>顧客名</th>
+                      <th>会社名</th>
+                      <th>ステータス</th>
+                      <th>見込み度</th>
+                      <th>商談金額</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>田中太郎</td>
+                      <td>株式会社ABC</td>
+                      <td><span class="badge badge-purple">商談中</span></td>
+                      <td>高</td>
+                      <td>¥5,000,000</td>
+                    </tr>
+                    <tr>
+                      <td>佐藤花子</td>
+                      <td>XYZ商事</td>
+                      <td><span class="badge badge-blue">見込み</span></td>
+                      <td>中</td>
+                      <td>¥3,000,000</td>
+                    </tr>
+                    <tr>
+                      <td>鈴木一郎</td>
+                      <td>DEF工業</td>
+                      <td><span class="badge badge-green">成約</span></td>
+                      <td>高</td>
+                      <td>¥8,000,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="design-tab" class="tab-content">
+          <div class="design-specs">
+            <h3>カラーパレット</h3>
+            <div class="color-palette">
+              <div class="color-item">
+                <div class="color-swatch" style="background: #8b5cf6;"></div>
+                <div class="color-info">
+                  <div class="color-name">プライマリ</div>
+                  <div class="color-code">#8b5cf6</div>
+                </div>
+              </div>
+              <div class="color-item">
+                <div class="color-swatch" style="background: #7c3aed;"></div>
+                <div class="color-info">
+                  <div class="color-name">プライマリ（ダーク）</div>
+                  <div class="color-code">#7c3aed</div>
+                </div>
+              </div>
+              <div class="color-item">
+                <div class="color-swatch" style="background: #1a202c;"></div>
+                <div class="color-info">
+                  <div class="color-name">テキスト</div>
+                  <div class="color-code">#1a202c</div>
+                </div>
+              </div>
+              <div class="color-item">
+                <div class="color-swatch" style="background: #f8fafc;"></div>
+                <div class="color-info">
+                  <div class="color-name">背景</div>
+                  <div class="color-code">#f8fafc</div>
+                </div>
+              </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">レイアウト構造</h3>
+            <div class="layout-diagram">
+              <div class="layout-box header-box">ヘッダー（固定）</div>
+              <div class="layout-container">
+                <div class="layout-box sidebar-box">サイドバー（240px）</div>
+                <div class="layout-main">
+                  <div class="layout-box stats-box">統計カード（4列グリッド）</div>
+                  <div class="layout-box content-box">メインコンテンツ（カンバン + テーブル）</div>
+                </div>
+              </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">コンポーネント</h3>
+            <div class="components-list">
+              <div class="component-item">
+                <strong>統計カード</strong>
+                <p>KPIを表示するカードコンポーネント。グラデーション背景、アイコン、数値、変化率を表示。</p>
+              </div>
+              <div class="component-item">
+                <strong>カンバンボード</strong>
+                <p>商談の進捗を視覚的に管理。ドラッグ&ドロップでステージ間を移動可能。</p>
+              </div>
+              <div class="component-item">
+                <strong>データテーブル</strong>
+                <p>顧客情報を一覧表示。検索、フィルター、ソート機能付き。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="database-tab" class="tab-content">
+          <div class="database-schema">
+            <h3>推奨データベース構造</h3>
+            <div class="schema-diagram">
+              <div class="table-box">
+                <div class="table-header">customers（顧客テーブル）</div>
+                <div class="table-fields">
+                  <div class="field primary">id: string (PK)</div>
+                  <div class="field">name: string</div>
+                  <div class="field">company: string</div>
+                  <div class="field">email: string</div>
+                  <div class="field">phone: string</div>
+                  <div class="field">status: string</div>
+                  <div class="field">probability: string</div>
+                  <div class="field">amount: number</div>
+                  <div class="field">assignedTo: string</div>
+                  <div class="field">lastContact: date</div>
+                  <div class="field">notes: string</div>
+                  <div class="field">createdAt: timestamp</div>
+                  <div class="field">updatedAt: timestamp</div>
+                </div>
+              </div>
+              
+              <div class="table-box">
+                <div class="table-header">deals（商談テーブル）</div>
+                <div class="table-fields">
+                  <div class="field primary">id: string (PK)</div>
+                  <div class="field foreign">customerId: string (FK → customers.id)</div>
+                  <div class="field">title: string</div>
+                  <div class="field">stage: string</div>
+                  <div class="field">amount: number</div>
+                  <div class="field">expectedCloseDate: date</div>
+                  <div class="field">probability: number</div>
+                  <div class="field">createdAt: timestamp</div>
+                  <div class="field">updatedAt: timestamp</div>
+                </div>
+              </div>
+              
+              <div class="table-box">
+                <div class="table-header">activities（活動履歴テーブル）</div>
+                <div class="table-fields">
+                  <div class="field primary">id: string (PK)</div>
+                  <div class="field foreign">customerId: string (FK → customers.id)</div>
+                  <div class="field">type: string</div>
+                  <div class="field">description: string</div>
+                  <div class="field">date: timestamp</div>
+                  <div class="field">createdBy: string</div>
+                  <div class="field">createdAt: timestamp</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="relationships">
+              <h4>リレーションシップ</h4>
+              <ul>
+                <li><strong>customers</strong> 1対多 <strong>deals</strong> - 1つの顧客に複数の商談</li>
+                <li><strong>customers</strong> 1対多 <strong>activities</strong> - 1つの顧客に複数の活動履歴</li>
+              </ul>
+            </div>
+            
+            <div class="sample-data" style="margin-top: 2rem;">
+              <h4>サンプルデータ例</h4>
+              <pre><code>{
+  "customers": [
+    {
+      "id": "cust_001",
+      "name": "田中太郎",
+      "company": "株式会社ABC",
+      "email": "tanaka@abc.co.jp",
+      "phone": "03-1234-5678",
+      "status": "商談中",
+      "probability": "高",
+      "amount": 5000000,
+      "assignedTo": "営業部 山田",
+      "lastContact": "2024-01-15",
+      "notes": "来月に最終提案予定"
+    }
+  ],
+  "deals": [
+    {
+      "id": "deal_001",
+      "customerId": "cust_001",
+      "title": "新規システム導入",
+      "stage": "提案中",
+      "amount": 5000000,
+      "expectedCloseDate": "2024-02-28",
+      "probability": 70
+    }
+  ]
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     
     <div class="section" style="text-align: center;">
