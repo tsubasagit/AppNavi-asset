@@ -7,7 +7,7 @@ import './App.css'
 
 // GitHub Pages用のベースパス
 // Viteのbase設定から自動的に取得
-const basename = import.meta.env.BASE_URL
+const basename = import.meta.env?.BASE_URL || '/AppNavi-asset/'
 
 function App() {
   return (

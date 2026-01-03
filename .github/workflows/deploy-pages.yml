@@ -40,13 +40,28 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Copy templates to dist
+      - name: Prepare deployment
         run: |
+          # ビルド後のdistディレクトリの内容を確認
+          echo "=== Build output ==="
+          ls -la dist/
+          echo ""
+          # dist/index.htmlが存在することを確認（Reactアプリのエントリーポイント）
+          if [ ! -f dist/index.html ]; then
+            echo "ERROR: dist/index.html not found!"
+            exit 1
+          fi
+          echo "✓ dist/index.html found"
           # templatesディレクトリをdist/templatesにコピー
           mkdir -p dist/templates
           cp -r templates/* dist/templates/
-          # テンプレートサーバーのindex.htmlは/templates/でアクセス可能にする
-          # （dist/templates/index.htmlとして既にコピー済み）
+          echo "✓ Templates copied to dist/templates/"
+          echo ""
+          echo "=== Final deployment structure ==="
+          find dist -type f -name "*.html" | head -10
+          echo ""
+          echo "Root files:"
+          ls -la dist/ | grep -E "^-"
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
