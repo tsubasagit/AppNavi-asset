@@ -3,8 +3,6 @@ import Layout from './components/Layout'
 import Marketplace from './pages/Marketplace'
 import AssetDetail from './pages/AssetDetail'
 import VendorDashboard from './pages/VendorDashboard'
-import Templates from './pages/Templates'
-import TemplateDetail from './pages/TemplateDetail'
 import './App.css'
 
 // GitHub Pages用のベースパス
@@ -19,8 +17,6 @@ function App() {
           <Route path="/" element={<Marketplace />} />
           <Route path="/asset/:id" element={<AssetDetail />} />
           <Route path="/vendor" element={<VendorDashboard />} />
-          <Route path="/templates" element={<Templates />} />
-          <Route path="/templates/:templateId" element={<TemplateDetail />} />
         </Routes>
       </Layout>
     </Router>
