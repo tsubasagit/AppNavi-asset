@@ -37,7 +37,12 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </header>
       <main className="main-content">
-        {children}
+        {children || (
+          <div style={{ padding: '2rem', textAlign: 'center' }}>
+            <h2>AppNavi プラグインマーケットプレイス</h2>
+            <p>コンテンツを読み込み中...</p>
+          </div>
+        )}
       </main>
       <footer className="footer">
         <p>&copy; 2024 AppNavi Asset Marketplace. All rights reserved.</p>

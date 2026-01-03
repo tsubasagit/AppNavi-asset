@@ -10,7 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "deploy:pages": "npm run build && npm run copy:templates",
     "copy:templates": "mkdir -p dist/templates && cp -r templates/* dist/templates/",
-    "build:all": "npm run build && npm run copy:templates"
+    "build:all": "npm run build && npm run copy:templates",
+    "serve:templates": "node templates/server.js"
   },
   "dependencies": {
     "react": "^18.2.0",

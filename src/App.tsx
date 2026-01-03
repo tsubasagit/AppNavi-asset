@@ -5,9 +5,13 @@ import AssetDetail from './pages/AssetDetail'
 import VendorDashboard from './pages/VendorDashboard'
 import './App.css'
 
+// GitHub Pages用のベースパス
+// Viteのbase設定から自動的に取得
+const basename = import.meta.env.BASE_URL
+
 function App() {
   return (
-    <Router>
+    <Router basename={basename}>
       <Layout>
         <Routes>
           <Route path="/" element={<Marketplace />} />

@@ -18,6 +18,7 @@ export default function Marketplace() {
 
   useEffect(() => {
     // 実際の実装ではAPIから取得
+    console.log('Loading assets...', mockAssets)
     setAssets(mockAssets)
     setFilteredAssets(mockAssets)
   }, [])

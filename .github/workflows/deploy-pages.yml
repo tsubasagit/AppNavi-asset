@@ -42,10 +42,11 @@ jobs:
       
       - name: Copy templates to dist
         run: |
+          # templatesディレクトリをdist/templatesにコピー
           mkdir -p dist/templates
           cp -r templates/* dist/templates/
-          # テンプレートサーバーのindex.htmlもルートにコピー
-          cp templates/index.html dist/templates-index.html
+          # テンプレートサーバーのindex.htmlは/templates/でアクセス可能にする
+          # （dist/templates/index.htmlとして既にコピー済み）
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

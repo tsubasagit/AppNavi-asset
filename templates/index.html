@@ -174,19 +174,25 @@
     }
     
     // ページ読み込み時に実行
+    function initializeTemplates() {
+      console.log('Initializing templates...')
+      const container = document.getElementById('templates-container')
+      if (!container) {
+        console.error('templates-container要素が見つかりません')
+        return
+      }
+      console.log('Container found, rendering templates...')
+      // 即座にフォールバックデータを表示（APIが失敗しても表示される）
+      renderTemplates(TEMPLATES_DATA.templates)
+      // その後、APIから最新データを取得を試みる
+      loadTemplates()
+    }
+    
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM loaded, loading templates...')
-        // 即座にフォールバックデータを表示（APIが失敗しても表示される）
-        renderTemplates(TEMPLATES_DATA.templates)
-        // その後、APIから最新データを取得を試みる
-        loadTemplates()
-      })
+      document.addEventListener('DOMContentLoaded', initializeTemplates)
     } else {
       // DOMが既に読み込まれている場合
-      console.log('DOM already loaded, loading templates...')
-      renderTemplates(TEMPLATES_DATA.templates)
-      loadTemplates()
+      setTimeout(initializeTemplates, 50)
     }
     
     // テンプレートデータを取得
