@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Package, Store, User } from 'lucide-react'
+import { Package, Store, User, FileText } from 'lucide-react'
 import './Layout.css'
 
 interface LayoutProps {
@@ -25,6 +25,13 @@ export default function Layout({ children }: LayoutProps) {
             >
               <Store size={18} />
               マーケットプレイス
+            </Link>
+            <Link 
+              to="/templates" 
+              className={location.pathname.startsWith('/templates') ? 'active' : ''}
+            >
+              <FileText size={18} />
+              テンプレート
             </Link>
             <Link 
               to="/vendor" 
