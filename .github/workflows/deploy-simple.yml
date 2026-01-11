@@ -47,6 +47,18 @@ jobs:
           cp -r templates/* dist/templates/
           # テンプレートサーバーのindex.htmlをルートにも配置
           cp templates/index.html dist/templates.html
+          # APIディレクトリをdist/apiにコピー（重要: 404エラーを防ぐため）
+          mkdir -p dist/api
+          if [ -f templates/api/templates.json ]; then
+            cp templates/api/templates.json dist/api/templates.json
+            echo "✓ API file copied to dist/api/templates.json"
+          else
+            echo "❌ ERROR: templates/api/templates.json not found!"
+            exit 1
+          fi
+          # .nojekyllファイルを作成
+          touch dist/.nojekyll
+          echo "✓ .nojekyll file created"
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
