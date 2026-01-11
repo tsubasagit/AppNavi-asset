@@ -56,10 +56,15 @@ jobs:
           mkdir -p dist/templates
           cp -r templates/* dist/templates/
           echo "✓ Templates copied to dist/templates/"
-          # APIディレクトリをdist/apiにコピー
+          # APIディレクトリをdist/apiにコピー（重要: このファイルが404エラーの原因）
           mkdir -p dist/api
-          cp templates/api/templates.json dist/api/templates.json
-          echo "✓ API file copied to dist/api/templates.json"
+          if [ -f templates/api/templates.json ]; then
+            cp templates/api/templates.json dist/api/templates.json
+            echo "✓ API file copied to dist/api/templates.json"
+          else
+            echo "❌ ERROR: templates/api/templates.json not found!"
+            exit 1
+          fi
           # _headersファイルをdistにコピー（CORS設定用、GitHub Pagesでは直接サポートされていないが、Netlify/Vercel用に準備）
           if [ -f _headers ]; then
             cp _headers dist/_headers
@@ -74,16 +79,29 @@ jobs:
           if [ -f dist/api/templates.json ]; then
             echo "✓ dist/api/templates.json exists"
             ls -lh dist/api/templates.json
+            echo "File size: $(wc -c < dist/api/templates.json) bytes"
+            echo "First 3 lines:"
+            head -n 3 dist/api/templates.json
           else
             echo "❌ ERROR: dist/api/templates.json not found!"
             exit 1
           fi
           echo ""
           echo "=== Final deployment structure ==="
-          find dist -type f -name "*.html" | head -10
+          echo "API directory contents:"
+          ls -la dist/api/ || echo "API directory not found"
+          echo ""
+          echo "Templates directory contents:"
+          ls -la dist/templates/ | head -10
           echo ""
           echo "Root files:"
           ls -la dist/ | grep -E "^-"
+          echo ""
+          echo "=== Verification ==="
+          echo "Checking if all required files exist:"
+          [ -f dist/api/templates.json ] && echo "✓ dist/api/templates.json" || echo "❌ dist/api/templates.json"
+          [ -f dist/.nojekyll ] && echo "✓ dist/.nojekyll" || echo "❌ dist/.nojekyll"
+          [ -f dist/index.html ] && echo "✓ dist/index.html" || echo "❌ dist/index.html"
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
