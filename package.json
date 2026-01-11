@@ -8,10 +8,12 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "deploy:pages": "npm run build && npm run copy:templates",
+    "deploy:pages": "npm run build && npm run copy:templates && npm run copy:headers",
     "copy:templates": "mkdir -p dist/templates && cp -r templates/* dist/templates/",
-    "build:all": "npm run build && npm run copy:templates",
-    "serve:templates": "node templates/server.js"
+    "copy:headers": "if exist _headers (copy _headers dist\\_headers) || if [ -f _headers ]; then cp _headers dist/_headers; fi",
+    "build:all": "npm run build && npm run copy:templates && npm run copy:headers",
+    "serve:templates": "node templates/server.js",
+    "validate:templates": "node scripts/validate-templates.js"
   },
   "dependencies": {
     "react": "^18.2.0",

@@ -56,6 +56,15 @@ jobs:
           mkdir -p dist/templates
           cp -r templates/* dist/templates/
           echo "✓ Templates copied to dist/templates/"
+          # APIディレクトリをdist/apiにコピー
+          mkdir -p dist/api
+          cp templates/api/templates.json dist/api/templates.json
+          echo "✓ API file copied to dist/api/templates.json"
+          # _headersファイルをdistにコピー（CORS設定用、GitHub Pagesでは直接サポートされていないが、Netlify/Vercel用に準備）
+          if [ -f _headers ]; then
+            cp _headers dist/_headers
+            echo "✓ _headers copied to dist/_headers"
+          fi
           echo ""
           echo "=== Final deployment structure ==="
           find dist -type f -name "*.html" | head -10

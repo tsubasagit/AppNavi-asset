@@ -1,107 +1,83 @@
 {
   "templates": [
     {
-      "id": 1,
       "templateId": "crm",
       "name": "顧客管理（CRM）",
       "description": "顧客情報、商談管理、活動履歴を一元管理",
       "category": "営業・マーケティング",
       "color": "purple",
-      "previewImageUrl": "/templates/crm/preview.png",
-      "demoUrl": "/templates/crm/",
-      "templateUrl": "/api/templates/crm/apply.json",
-      "schemaUrl": "/api/templates/crm/schema.json",
-      "viewsUrl": "/api/templates/crm/views.json",
-      "sampleDataUrl": "/api/templates/crm/sample-data.json",
-      "spreadsheetUrl": "/api/templates/crm/spreadsheet",
       "version": "1.0.0",
       "isPublic": true,
       "tags": ["営業", "顧客管理", "商談", "CRM"],
-      "author": "AppTalentHub",
+      "author": "AppNavi Team",
       "features": [
         "顧客一覧テーブル",
         "商談パイプライン（カンバン）",
         "活動履歴タイムライン",
         "営業ダッシュボード（KPI表示）"
-      ]
+      ],
+      "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/preview.png",
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/"
     },
     {
-      "id": 2,
       "templateId": "google-calendar-group",
       "name": "Googleカレンダーのグループ化",
       "description": "複数のGoogleカレンダーを統合し、グループ別に管理・表示",
       "category": "スケジュール管理",
       "color": "orange",
-      "previewImageUrl": "/templates/google-calendar-group/preview.png",
-      "demoUrl": "/templates/google-calendar-group/",
-      "templateUrl": "/api/templates/google-calendar-group/apply.json",
-      "schemaUrl": "/api/templates/google-calendar-group/schema.json",
-      "viewsUrl": "/api/templates/google-calendar-group/views.json",
-      "sampleDataUrl": "/api/templates/google-calendar-group/sample-data.json",
-      "spreadsheetUrl": "/api/templates/google-calendar-group/spreadsheet",
       "version": "1.0.0",
       "isPublic": true,
       "tags": ["カレンダー", "スケジュール", "Google", "グループ管理"],
-      "author": "AppTalentHub",
+      "author": "AppNavi Team",
       "features": [
         "カレンダー統合表示",
         "グループ別フィルター",
         "イベント一覧",
         "参加者管理",
         "自動同期"
-      ]
+      ],
+      "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/preview.png",
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/"
     },
     {
-      "id": 3,
       "templateId": "daily-report",
       "name": "日報チェック",
       "description": "日々の業務活動の記録とチェック、自動連携",
       "category": "業務管理",
       "color": "green",
-      "previewImageUrl": "/templates/daily-report/preview.png",
-      "demoUrl": "/templates/daily-report/",
-      "templateUrl": "/api/templates/daily-report/apply.json",
-      "schemaUrl": "/api/templates/daily-report/schema.json",
-      "viewsUrl": "/api/templates/daily-report/views.json",
-      "sampleDataUrl": "/api/templates/daily-report/sample-data.json",
-      "spreadsheetUrl": "/api/templates/daily-report/spreadsheet",
       "version": "1.0.0",
       "isPublic": true,
       "tags": ["日報", "活動報告", "チェック", "業務管理"],
-      "author": "AppTalentHub",
+      "author": "AppNavi Team",
       "features": [
         "日報入力フォーム",
         "活動一覧テーブル",
         "カレンダー表示",
         "チェック状況ダッシュボード",
         "自動承認フロー"
-      ]
+      ],
+      "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/preview.png",
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/"
     },
     {
-      "id": 4,
       "templateId": "auto-integration",
       "name": "自動連携",
       "description": "各種サービスとの自動連携とデータ同期",
       "category": "連携・統合",
       "color": "blue",
-      "previewImageUrl": "/templates/auto-integration/preview.png",
-      "demoUrl": "/templates/auto-integration/",
-      "templateUrl": "/api/templates/auto-integration/apply.json",
-      "schemaUrl": "/api/templates/auto-integration/schema.json",
-      "viewsUrl": "/api/templates/auto-integration/views.json",
-      "sampleDataUrl": "/api/templates/auto-integration/sample-data.json",
-      "spreadsheetUrl": "/api/templates/auto-integration/spreadsheet",
       "version": "1.0.0",
       "isPublic": true,
       "tags": ["連携", "統合", "自動化", "データ同期"],
-      "author": "AppTalentHub",
+      "author": "AppNavi Team",
       "features": [
         "連携設定画面",
         "データ同期状況",
         "連携ログ",
         "エラー通知",
         "自動更新ダッシュボード"
-      ]
+      ],
+      "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/preview.png",
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/"
     }
   ]
 }
