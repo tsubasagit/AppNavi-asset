@@ -65,6 +65,19 @@ jobs:
             cp _headers dist/_headers
             echo "✓ _headers copied to dist/_headers"
           fi
+          # .nojekyllファイルを作成（Jekyllの処理を無効化、アンダースコアで始まるファイルを有効化）
+          touch dist/.nojekyll
+          echo "✓ .nojekyll file created"
+          # デプロイ構造の確認
+          echo ""
+          echo "=== API file check ==="
+          if [ -f dist/api/templates.json ]; then
+            echo "✓ dist/api/templates.json exists"
+            ls -lh dist/api/templates.json
+          else
+            echo "❌ ERROR: dist/api/templates.json not found!"
+            exit 1
+          fi
           echo ""
           echo "=== Final deployment structure ==="
           find dist -type f -name "*.html" | head -10
