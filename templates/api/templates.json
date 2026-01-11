@@ -18,7 +18,10 @@
         "営業ダッシュボード（KPI表示）"
       ],
       "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/preview.png",
-      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/"
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/",
+      "schemaUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/schema.json",
+      "viewsUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/views.json",
+      "sampleDataUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/crm/sample-data.json"
     },
     {
       "templateId": "google-calendar-group",
@@ -39,7 +42,10 @@
         "自動同期"
       ],
       "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/preview.png",
-      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/"
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/",
+      "schemaUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/schema.json",
+      "viewsUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/views.json",
+      "sampleDataUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/google-calendar-group/sample-data.json"
     },
     {
       "templateId": "daily-report",
@@ -60,7 +66,10 @@
         "自動承認フロー"
       ],
       "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/preview.png",
-      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/"
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/",
+      "schemaUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/schema.json",
+      "viewsUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/views.json",
+      "sampleDataUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/daily-report/sample-data.json"
     },
     {
       "templateId": "auto-integration",
@@ -81,7 +90,10 @@
         "自動更新ダッシュボード"
       ],
       "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/preview.png",
-      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/"
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/",
+      "schemaUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/schema.json",
+      "viewsUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/views.json",
+      "sampleDataUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/sample-data.json"
     },
     {
       "templateId": "blank-page",
@@ -100,7 +112,10 @@
         "基本的なページレイアウト"
       ],
       "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/preview.png",
-      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/"
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/",
+      "schemaUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/schema.json",
+      "viewsUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/views.json",
+      "sampleDataUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/sample-data.json"
     }
   ]
 }
