@@ -1,0 +1,71 @@
+{
+  "templateId": "blank-page",
+  "version": "1.0.0",
+  "views": [
+    {
+      "id": "page-list",
+      "name": "ページ一覧",
+      "type": "table",
+      "route": "/",
+      "table": "pages",
+      "searchable": true,
+      "searchFields": ["title", "content"],
+      "columns": [
+        {
+          "field": "title",
+          "label": "タイトル",
+          "width": 300,
+          "sortable": true
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "updatedAt",
+          "label": "更新日時",
+          "width": 150,
+          "sortable": true,
+          "format": "datetime"
+        }
+      ],
+      "filters": [
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規ページ作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        }
+      ],
+      "defaultSort": {
+        "field": "updatedAt",
+        "order": "desc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    }
+  ],
+  "theme": {
+    "primaryColor": "#64748b",
+    "secondaryColor": "#94a3b8",
+    "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "borderRadius": "8px"
+  }
+}

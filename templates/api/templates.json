@@ -82,6 +82,25 @@
       ],
       "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/preview.png",
       "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/auto-integration/"
+    },
+    {
+      "templateId": "blank-page",
+      "name": "ブランクページ",
+      "description": "シンプルで柔軟な、カスタマイズ可能なテンプレート",
+      "category": "基本テンプレート",
+      "color": "slate",
+      "version": "1.0.0",
+      "updatedAt": "2024-12-29T00:00:00Z",
+      "isPublic": true,
+      "tags": ["基本", "シンプル", "カスタマイズ", "ブランク"],
+      "author": "AppNavi Team",
+      "features": [
+        "最小限の構造",
+        "自由にカスタマイズ可能",
+        "基本的なページレイアウト"
+      ],
+      "previewImageUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/preview.png",
+      "demoUrl": "https://tsubasagit.github.io/AppNavi-asset/templates/blank-page/"
     }
   ]
 }

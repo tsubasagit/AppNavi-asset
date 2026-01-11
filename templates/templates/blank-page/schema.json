@@ -1,0 +1,68 @@
+{
+  "id": 5,
+  "templateId": "blank-page",
+  "version": "1.0.0",
+  "name": "ブランクページ",
+  "description": "シンプルで柔軟な、カスタマイズ可能なテンプレート",
+  "templateUrl": "/api/templates/blank-page/apply.json",
+  "schemaUrl": "/api/templates/blank-page/schema.json",
+  "viewsUrl": "/api/templates/blank-page/views.json",
+  "sampleDataUrl": "/api/templates/blank-page/sample-data.json",
+  "spreadsheetUrl": "/api/templates/blank-page/spreadsheet",
+  "tables": [
+    {
+      "name": "pages",
+      "label": "ページ",
+      "fields": [
+        {
+          "name": "id",
+          "label": "ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "title",
+          "label": "タイトル",
+          "type": "string",
+          "required": true,
+          "description": "ページのタイトル",
+          "searchable": true
+        },
+        {
+          "name": "content",
+          "label": "内容",
+          "type": "text",
+          "required": false,
+          "description": "ページの内容（テキスト）"
+        },
+        {
+          "name": "status",
+          "label": "ステータス",
+          "type": "select",
+          "required": true,
+          "description": "ページのステータス",
+          "options": ["下書き", "公開中", "非公開"],
+          "defaultValue": "下書き"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    }
+  ],
+  "relationships": []
+}
