@@ -19,6 +19,7 @@ interface Template {
   category: string;
   color: 'purple' | 'orange' | 'green' | 'blue' | 'slate';
   version: string;
+  updatedAt: string; // ISO 8601形式 (例: "2024-12-29T00:00:00Z")
   isPublic: boolean;
   tags: string[];
   author: string;

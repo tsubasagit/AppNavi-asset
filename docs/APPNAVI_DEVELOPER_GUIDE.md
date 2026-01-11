@@ -32,6 +32,7 @@
       "category": "営業・マーケティング",
       "color": "purple",
       "version": "1.0.0",
+      "updatedAt": "2024-12-29T00:00:00Z",
       "isPublic": true,
       "tags": ["営業", "顧客管理", "商談", "CRM"],
       "author": "AppNavi Team",
@@ -60,6 +61,7 @@
 | `category` | string | カテゴリ名（日本語可） | `"営業・マーケティング"` |
 | `color` | string | テンプレートの色（`purple`, `orange`, `green`, `blue`, `slate`のいずれか） | `"purple"` |
 | `version` | string | バージョン番号（セマンティックバージョニング推奨） | `"1.0.0"` |
+| `updatedAt` | string | 更新日時（ISO 8601形式） | `"2024-12-29T00:00:00Z"` |
 | `isPublic` | boolean | 公開フラグ（常に`true`） | `true` |
 | `tags` | string[] | タグの配列 | `["営業", "顧客管理", "商談", "CRM"]` |
 | `author` | string | 作成者名 | `"AppNavi Team"` |
@@ -85,6 +87,7 @@ interface Template {
   category: string;
   color: 'purple' | 'orange' | 'green' | 'blue' | 'slate';
   version: string;
+  updatedAt: string; // ISO 8601形式 (例: "2024-12-29T00:00:00Z")
   isPublic: boolean;
   tags: string[];
   author: string;

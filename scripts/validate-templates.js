@@ -55,6 +55,15 @@ function validateTemplate(template, index) {
     }
   }
 
+  // updatedAtの形式チェック（ISO 8601形式推奨）
+  if (template.updatedAt) {
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(template.updatedAt)) {
+      warnings.push(`updatedAtの形式が推奨されていません: ${template.updatedAt} (例: 2024-12-29T00:00:00Z)`);
+    }
+  } else {
+    warnings.push(`updatedAtフィールドが設定されていません（推奨）`);
+  }
+
   // tagsの型チェック
   if (template.tags && !Array.isArray(template.tags)) {
     errors.push(`tagsは配列である必要があります: ${typeof template.tags}`);
