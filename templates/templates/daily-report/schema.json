@@ -1,0 +1,122 @@
+{
+  "id": 3,
+  "templateId": "daily-report",
+  "version": "1.0.0",
+  "name": "日報チェック",
+  "description": "日々の業務活動の記録とチェック、自動連携",
+  "templateUrl": "/api/templates/daily-report/apply.json",
+  "schemaUrl": "/api/templates/daily-report/schema.json",
+  "viewsUrl": "/api/templates/daily-report/views.json",
+  "sampleDataUrl": "/api/templates/daily-report/sample-data.json",
+  "spreadsheetUrl": "/api/templates/daily-report/spreadsheet",
+  "templateUrl": "/api/templates/daily-report/apply.json",
+  "schemaUrl": "/api/templates/daily-report/schema.json",
+  "viewsUrl": "/api/templates/daily-report/views.json",
+  "sampleDataUrl": "/api/templates/daily-report/sample-data.json",
+  "spreadsheetUrl": "/api/templates/daily-report/spreadsheet",
+  "tables": [
+    {
+      "name": "daily_reports",
+      "label": "日報",
+      "fields": [
+        {
+          "name": "id",
+          "label": "日報ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "date",
+          "label": "日付",
+          "type": "date",
+          "required": true,
+          "description": "日報の日付"
+        },
+        {
+          "name": "submitter",
+          "label": "提出者",
+          "type": "string",
+          "required": true,
+          "description": "提出者の名前",
+          "searchable": true
+        },
+        {
+          "name": "activities",
+          "label": "活動内容",
+          "type": "text",
+          "required": true,
+          "description": "本日の活動内容"
+        },
+        {
+          "name": "results",
+          "label": "成果",
+          "type": "text",
+          "required": false,
+          "description": "本日の成果"
+        },
+        {
+          "name": "issues",
+          "label": "課題",
+          "type": "text",
+          "required": false,
+          "description": "本日の課題"
+        },
+        {
+          "name": "status",
+          "label": "ステータス",
+          "type": "select",
+          "required": true,
+          "description": "日報のステータス",
+          "options": ["未提出", "提出済み", "承認済み", "差し戻し"],
+          "defaultValue": "未提出"
+        },
+        {
+          "name": "checker",
+          "label": "チェック者",
+          "type": "string",
+          "required": false,
+          "description": "チェックした人の名前"
+        },
+        {
+          "name": "submittedAt",
+          "label": "提出日時",
+          "type": "timestamp",
+          "required": false,
+          "description": "提出日時"
+        },
+        {
+          "name": "checkedAt",
+          "label": "チェック日時",
+          "type": "timestamp",
+          "required": false,
+          "description": "チェックした日時"
+        },
+        {
+          "name": "remarks",
+          "label": "備考",
+          "type": "text",
+          "required": false,
+          "description": "チェック者からの備考・コメント"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    }
+  ],
+  "relationships": []
+}

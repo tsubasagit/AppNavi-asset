@@ -1,0 +1,293 @@
+{
+  "templateId": "auto-integration",
+  "version": "1.0.0",
+  "views": [
+    {
+      "id": "dashboard",
+      "name": "ダッシュボード",
+      "type": "dashboard",
+      "route": "/",
+      "layout": "grid",
+      "columns": 12,
+      "widgets": [
+        {
+          "id": "total-integrations",
+          "type": "stat",
+          "label": "総連携数",
+          "query": {
+            "table": "integrations",
+            "aggregation": "count"
+          },
+          "icon": "link",
+          "color": "#3b82f6",
+          "colSpan": 3
+        },
+        {
+          "id": "active-integrations",
+          "type": "stat",
+          "label": "有効な連携",
+          "query": {
+            "table": "integrations",
+            "aggregation": "count",
+            "filter": {
+              "status": "有効"
+            }
+          },
+          "icon": "check-circle",
+          "color": "#10b981",
+          "colSpan": 3
+        },
+        {
+          "id": "error-integrations",
+          "type": "stat",
+          "label": "エラー連携",
+          "query": {
+            "table": "integrations",
+            "aggregation": "count",
+            "filter": {
+              "status": "エラー"
+            }
+          },
+          "icon": "alert-circle",
+          "color": "#ef4444",
+          "colSpan": 3
+        },
+        {
+          "id": "total-syncs",
+          "type": "stat",
+          "label": "総同期回数",
+          "query": {
+            "table": "sync_logs",
+            "aggregation": "count"
+          },
+          "icon": "refresh-cw",
+          "color": "#8b5cf6",
+          "colSpan": 3
+        },
+        {
+          "id": "status-chart",
+          "type": "chart",
+          "label": "ステータス分布",
+          "chartType": "pie",
+          "query": {
+            "table": "integrations",
+            "groupBy": "status",
+            "aggregation": "count"
+          },
+          "colSpan": 6
+        },
+        {
+          "id": "recent-syncs",
+          "type": "list",
+          "label": "最近の同期",
+          "query": {
+            "table": "sync_logs",
+            "limit": 10,
+            "sort": {
+              "field": "syncAt",
+              "order": "desc"
+            }
+          },
+          "fields": [
+            {
+              "field": "integrationId",
+              "label": "連携",
+              "relation": {
+                "table": "integrations",
+                "field": "name"
+              }
+            },
+            {
+              "field": "status",
+              "label": "ステータス",
+              "render": "badge"
+            },
+            {
+              "field": "recordCount",
+              "label": "レコード数"
+            },
+            {
+              "field": "syncAt",
+              "label": "同期日時",
+              "format": "datetime"
+            }
+          ],
+          "colSpan": 6
+        }
+      ]
+    },
+    {
+      "id": "integration-list",
+      "name": "連携一覧",
+      "type": "table",
+      "route": "/integrations",
+      "table": "integrations",
+      "searchable": true,
+      "searchFields": ["name", "service"],
+      "columns": [
+        {
+          "field": "name",
+          "label": "連携名",
+          "width": 200,
+          "sortable": true
+        },
+        {
+          "field": "service",
+          "label": "サービス",
+          "width": 150,
+          "sortable": true
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "lastSyncAt",
+          "label": "最終同期日時",
+          "width": 150,
+          "sortable": true,
+          "format": "datetime"
+        },
+        {
+          "field": "errorCount",
+          "label": "エラー数",
+          "width": 100,
+          "sortable": true
+        },
+        {
+          "field": "syncInterval",
+          "label": "同期間隔",
+          "width": 120,
+          "sortable": true
+        }
+      ],
+      "filters": [
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        },
+        {
+          "field": "service",
+          "type": "select",
+          "label": "サービス"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規連携作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        },
+        {
+          "type": "sync",
+          "label": "手動同期"
+        }
+      ],
+      "defaultSort": {
+        "field": "updatedAt",
+        "order": "desc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    },
+    {
+      "id": "sync-logs",
+      "name": "同期ログ",
+      "type": "table",
+      "route": "/logs",
+      "table": "sync_logs",
+      "columns": [
+        {
+          "field": "integrationId",
+          "label": "連携",
+          "width": 200,
+          "sortable": true,
+          "relation": {
+            "table": "integrations",
+            "field": "name"
+          }
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "syncType",
+          "label": "同期種別",
+          "width": 120,
+          "sortable": true
+        },
+        {
+          "field": "recordCount",
+          "label": "レコード数",
+          "width": 120,
+          "sortable": true
+        },
+        {
+          "field": "duration",
+          "label": "実行時間",
+          "width": 120,
+          "sortable": true,
+          "format": "duration"
+        },
+        {
+          "field": "syncAt",
+          "label": "同期日時",
+          "width": 150,
+          "sortable": true,
+          "format": "datetime"
+        },
+        {
+          "field": "errorMessage",
+          "label": "エラーメッセージ",
+          "width": 300
+        }
+      ],
+      "filters": [
+        {
+          "field": "integrationId",
+          "type": "select",
+          "label": "連携"
+        },
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        },
+        {
+          "field": "syncAt",
+          "type": "date",
+          "label": "同期日"
+        }
+      ],
+      "defaultSort": {
+        "field": "syncAt",
+        "order": "desc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    }
+  ],
+  "theme": {
+    "primaryColor": "#3b82f6",
+    "secondaryColor": "#60a5fa",
+    "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "borderRadius": "8px"
+  }
+}

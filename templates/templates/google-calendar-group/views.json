@@ -1,0 +1,183 @@
+{
+  "templateId": "google-calendar-group",
+  "version": "1.0.0",
+  "views": [
+    {
+      "id": "calendar-view",
+      "name": "カレンダー表示",
+      "type": "calendar",
+      "route": "/",
+      "table": "events",
+      "dateField": "startDateTime",
+      "titleField": "title",
+      "groupBy": "calendarId",
+      "filters": [
+        {
+          "field": "groupId",
+          "type": "select",
+          "label": "グループ",
+          "relation": {
+            "table": "calendar_groups",
+            "field": "name"
+          }
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規イベント作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        }
+      ]
+    },
+    {
+      "id": "event-list",
+      "name": "イベント一覧",
+      "type": "table",
+      "route": "/events",
+      "table": "events",
+      "columns": [
+        {
+          "field": "title",
+          "label": "イベント名",
+          "width": 200,
+          "sortable": true
+        },
+        {
+          "field": "calendarId",
+          "label": "カレンダー",
+          "width": 150,
+          "sortable": true,
+          "relation": {
+            "table": "calendars",
+            "field": "name"
+          }
+        },
+        {
+          "field": "startDateTime",
+          "label": "開始日時",
+          "width": 150,
+          "sortable": true,
+          "format": "datetime"
+        },
+        {
+          "field": "endDateTime",
+          "label": "終了日時",
+          "width": 150,
+          "sortable": true,
+          "format": "datetime"
+        },
+        {
+          "field": "location",
+          "label": "場所",
+          "width": 150,
+          "sortable": true
+        },
+        {
+          "field": "participants",
+          "label": "参加者",
+          "width": 200
+        }
+      ],
+      "filters": [
+        {
+          "field": "calendarId",
+          "type": "select",
+          "label": "カレンダー"
+        },
+        {
+          "field": "startDateTime",
+          "type": "date",
+          "label": "開始日"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規イベント作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        }
+      ],
+      "defaultSort": {
+        "field": "startDateTime",
+        "order": "asc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    },
+    {
+      "id": "group-management",
+      "name": "グループ管理",
+      "type": "table",
+      "route": "/groups",
+      "table": "calendar_groups",
+      "columns": [
+        {
+          "field": "name",
+          "label": "グループ名",
+          "width": 200,
+          "sortable": true
+        },
+        {
+          "field": "description",
+          "label": "説明",
+          "width": 300
+        },
+        {
+          "field": "color",
+          "label": "色",
+          "width": 100,
+          "render": "color"
+        },
+        {
+          "field": "isActive",
+          "label": "有効",
+          "width": 100,
+          "render": "boolean"
+        },
+        {
+          "field": "updatedAt",
+          "label": "更新日時",
+          "width": 150,
+          "sortable": true,
+          "format": "datetime"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規グループ作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        }
+      ]
+    }
+  ],
+  "theme": {
+    "primaryColor": "#f97316",
+    "secondaryColor": "#fb923c",
+    "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "borderRadius": "8px"
+  }
+}

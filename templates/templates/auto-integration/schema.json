@@ -1,0 +1,196 @@
+{
+  "id": 4,
+  "templateId": "auto-integration",
+  "version": "1.0.0",
+  "name": "自動連携",
+  "description": "各種サービスとの自動連携とデータ同期",
+  "templateUrl": "/api/templates/auto-integration/apply.json",
+  "schemaUrl": "/api/templates/auto-integration/schema.json",
+  "viewsUrl": "/api/templates/auto-integration/views.json",
+  "sampleDataUrl": "/api/templates/auto-integration/sample-data.json",
+  "spreadsheetUrl": "/api/templates/auto-integration/spreadsheet",
+  "tables": [
+    {
+      "name": "integrations",
+      "label": "連携設定",
+      "fields": [
+        {
+          "name": "id",
+          "label": "連携ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "name",
+          "label": "連携名",
+          "type": "string",
+          "required": true,
+          "description": "連携の名前",
+          "searchable": true
+        },
+        {
+          "name": "service",
+          "label": "サービス",
+          "type": "select",
+          "required": true,
+          "description": "連携先のサービス名",
+          "options": ["Google Calendar", "Google Sheets", "Slack", "Microsoft Teams", "Zoom", "Notion", "Trello", "Asana", "その他"],
+          "defaultValue": null
+        },
+        {
+          "name": "status",
+          "label": "ステータス",
+          "type": "select",
+          "required": true,
+          "description": "連携の状態",
+          "options": ["有効", "無効", "エラー"],
+          "defaultValue": "無効"
+        },
+        {
+          "name": "lastSyncAt",
+          "label": "最終同期日時",
+          "type": "timestamp",
+          "required": false,
+          "description": "最後に同期した日時"
+        },
+        {
+          "name": "errorCount",
+          "label": "エラー数",
+          "type": "number",
+          "required": true,
+          "description": "エラーが発生した回数",
+          "min": 0,
+          "defaultValue": 0
+        },
+        {
+          "name": "settings",
+          "label": "設定",
+          "type": "text",
+          "required": false,
+          "description": "連携の設定情報（JSON形式）"
+        },
+        {
+          "name": "syncInterval",
+          "label": "同期間隔",
+          "type": "select",
+          "required": false,
+          "description": "自動同期の間隔",
+          "options": ["5分", "15分", "30分", "1時間", "6時間", "24時間", "手動"],
+          "defaultValue": "手動"
+        },
+        {
+          "name": "description",
+          "label": "説明",
+          "type": "text",
+          "required": false,
+          "description": "連携の説明"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    },
+    {
+      "name": "sync_logs",
+      "label": "同期ログ",
+      "fields": [
+        {
+          "name": "id",
+          "label": "ログID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "integrationId",
+          "label": "連携ID",
+          "type": "string",
+          "required": true,
+          "description": "連携設定のID",
+          "foreignKey": {
+            "table": "integrations",
+            "field": "id"
+          }
+        },
+        {
+          "name": "status",
+          "label": "ステータス",
+          "type": "select",
+          "required": true,
+          "description": "同期の状態",
+          "options": ["成功", "失敗", "エラー"],
+          "defaultValue": "成功"
+        },
+        {
+          "name": "syncType",
+          "label": "同期種別",
+          "type": "select",
+          "required": true,
+          "description": "同期の種類",
+          "options": ["自動", "手動"],
+          "defaultValue": "自動"
+        },
+        {
+          "name": "recordCount",
+          "label": "レコード数",
+          "type": "number",
+          "required": false,
+          "description": "同期したレコード数",
+          "min": 0
+        },
+        {
+          "name": "errorMessage",
+          "label": "エラーメッセージ",
+          "type": "text",
+          "required": false,
+          "description": "エラーが発生した場合のメッセージ"
+        },
+        {
+          "name": "syncAt",
+          "label": "同期日時",
+          "type": "timestamp",
+          "required": true,
+          "description": "同期が実行された日時"
+        },
+        {
+          "name": "duration",
+          "label": "実行時間",
+          "type": "number",
+          "required": false,
+          "description": "同期の実行時間（秒）",
+          "min": 0
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "integrations",
+        "field": "id"
+      },
+      "to": {
+        "table": "sync_logs",
+        "field": "integrationId"
+      },
+      "type": "one-to-many",
+      "description": "1つの連携に対して複数の同期ログが存在"
+    }
+  ]
+}

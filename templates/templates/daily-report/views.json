@@ -1,0 +1,191 @@
+{
+  "templateId": "daily-report",
+  "version": "1.0.0",
+  "views": [
+    {
+      "id": "dashboard",
+      "name": "ダッシュボード",
+      "type": "dashboard",
+      "route": "/",
+      "layout": "grid",
+      "columns": 12,
+      "widgets": [
+        {
+          "id": "total-reports",
+          "type": "stat",
+          "label": "総日報数",
+          "query": {
+            "table": "daily_reports",
+            "aggregation": "count"
+          },
+          "icon": "file-text",
+          "color": "#10b981",
+          "colSpan": 3
+        },
+        {
+          "id": "pending-reports",
+          "type": "stat",
+          "label": "未提出",
+          "query": {
+            "table": "daily_reports",
+            "aggregation": "count",
+            "filter": {
+              "status": "未提出"
+            }
+          },
+          "icon": "clock",
+          "color": "#f59e0b",
+          "colSpan": 3
+        },
+        {
+          "id": "submitted-reports",
+          "type": "stat",
+          "label": "提出済み",
+          "query": {
+            "table": "daily_reports",
+            "aggregation": "count",
+            "filter": {
+              "status": "提出済み"
+            }
+          },
+          "icon": "check-circle",
+          "color": "#3b82f6",
+          "colSpan": 3
+        },
+        {
+          "id": "approved-reports",
+          "type": "stat",
+          "label": "承認済み",
+          "query": {
+            "table": "daily_reports",
+            "aggregation": "count",
+            "filter": {
+              "status": "承認済み"
+            }
+          },
+          "icon": "check",
+          "color": "#10b981",
+          "colSpan": 3
+        },
+        {
+          "id": "status-chart",
+          "type": "chart",
+          "label": "ステータス分布",
+          "chartType": "pie",
+          "query": {
+            "table": "daily_reports",
+            "groupBy": "status",
+            "aggregation": "count"
+          },
+          "colSpan": 6
+        },
+        {
+          "id": "calendar-view",
+          "type": "calendar",
+          "label": "カレンダー表示",
+          "table": "daily_reports",
+          "dateField": "date",
+          "titleField": "submitter",
+          "colSpan": 6
+        }
+      ]
+    },
+    {
+      "id": "report-list",
+      "name": "日報一覧",
+      "type": "table",
+      "route": "/reports",
+      "table": "daily_reports",
+      "searchable": true,
+      "searchFields": ["submitter", "activities"],
+      "columns": [
+        {
+          "field": "date",
+          "label": "日付",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "submitter",
+          "label": "提出者",
+          "width": 150,
+          "sortable": true
+        },
+        {
+          "field": "activities",
+          "label": "活動内容",
+          "width": 300
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "checker",
+          "label": "チェック者",
+          "width": 150,
+          "sortable": true
+        },
+        {
+          "field": "submittedAt",
+          "label": "提出日時",
+          "width": 150,
+          "sortable": true,
+          "format": "datetime"
+        }
+      ],
+      "filters": [
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        },
+        {
+          "field": "submitter",
+          "type": "select",
+          "label": "提出者"
+        },
+        {
+          "field": "date",
+          "type": "date",
+          "label": "日付"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規日報作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        },
+        {
+          "type": "check",
+          "label": "チェック"
+        }
+      ],
+      "defaultSort": {
+        "field": "date",
+        "order": "desc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    }
+  ],
+  "theme": {
+    "primaryColor": "#10b981",
+    "secondaryColor": "#34d399",
+    "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "borderRadius": "8px"
+  }
+}
