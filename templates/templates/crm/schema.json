@@ -1,0 +1,412 @@
+{
+  "id": 1,
+  "templateId": "crm",
+  "version": "1.0.0",
+  "name": "顧客管理（CRM）",
+  "description": "顧客情報、商談管理、活動履歴を一元管理",
+  "templateUrl": "/api/templates/crm/apply.json",
+  "schemaUrl": "/api/templates/crm/schema.json",
+  "viewsUrl": "/api/templates/crm/views.json",
+  "sampleDataUrl": "/api/templates/crm/sample-data.json",
+  "spreadsheetUrl": "/api/templates/crm/spreadsheet",
+  "tables": [
+    {
+      "name": "customers",
+      "label": "顧客マスタ",
+      "fields": [
+        {
+          "name": "id",
+          "label": "顧客ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "name",
+          "label": "顧客名",
+          "type": "string",
+          "required": true,
+          "description": "担当者名または代表者名",
+          "searchable": true
+        },
+        {
+          "name": "company",
+          "label": "会社名",
+          "type": "string",
+          "required": true,
+          "description": "法人名または個人事業主名",
+          "searchable": true
+        },
+        {
+          "name": "department",
+          "label": "部署名",
+          "type": "string",
+          "required": false,
+          "description": "所属部署"
+        },
+        {
+          "name": "position",
+          "label": "役職",
+          "type": "string",
+          "required": false,
+          "description": "役職名"
+        },
+        {
+          "name": "email",
+          "label": "メールアドレス",
+          "type": "email",
+          "required": false,
+          "description": "連絡先メール",
+          "validation": "email"
+        },
+        {
+          "name": "phone",
+          "label": "電話番号",
+          "type": "string",
+          "required": false,
+          "description": "連絡先電話（ハイフン有無どちらでも可）"
+        },
+        {
+          "name": "postalCode",
+          "label": "郵便番号",
+          "type": "string",
+          "required": false,
+          "description": "郵便番号"
+        },
+        {
+          "name": "address",
+          "label": "住所",
+          "type": "string",
+          "required": false,
+          "description": "都道府県+市区町村+番地"
+        },
+        {
+          "name": "industry",
+          "label": "業種",
+          "type": "select",
+          "required": false,
+          "description": "業種分類",
+          "options": ["IT・ソフトウェア", "製造業", "小売・卸売", "サービス業", "建設・不動産", "金融・保険", "医療・福祉", "教育", "その他"],
+          "defaultValue": null
+        },
+        {
+          "name": "employeeCount",
+          "label": "従業員数",
+          "type": "number",
+          "required": false,
+          "description": "従業員数",
+          "min": 0
+        },
+        {
+          "name": "annualRevenue",
+          "label": "年商",
+          "type": "number",
+          "required": false,
+          "description": "年間売上高（万円）",
+          "min": 0,
+          "format": "currency"
+        },
+        {
+          "name": "status",
+          "label": "顧客ステータス",
+          "type": "select",
+          "required": true,
+          "description": "顧客の状態",
+          "options": ["見込み", "商談中", "既存顧客", "休眠", "失注"],
+          "defaultValue": "見込み"
+        },
+        {
+          "name": "probability",
+          "label": "見込み度",
+          "type": "select",
+          "required": false,
+          "description": "成約見込み度",
+          "options": ["高", "中", "低"],
+          "defaultValue": "中"
+        },
+        {
+          "name": "assignedTo",
+          "label": "担当者",
+          "type": "string",
+          "required": false,
+          "description": "自社の担当者名"
+        },
+        {
+          "name": "lastContact",
+          "label": "最終接触日",
+          "type": "date",
+          "required": false,
+          "description": "最後に連絡した日付（自動更新推奨）"
+        },
+        {
+          "name": "registrationDate",
+          "label": "登録日",
+          "type": "date",
+          "required": true,
+          "description": "顧客登録日（自動設定）",
+          "autoGenerate": true
+        },
+        {
+          "name": "notes",
+          "label": "備考",
+          "type": "text",
+          "required": false,
+          "description": "自由記述のメモ"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    },
+    {
+      "name": "deals",
+      "label": "商談管理",
+      "fields": [
+        {
+          "name": "id",
+          "label": "商談ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "customerId",
+          "label": "顧客ID",
+          "type": "string",
+          "required": true,
+          "description": "顧客マスタの顧客ID",
+          "foreignKey": {
+            "table": "customers",
+            "field": "id"
+          }
+        },
+        {
+          "name": "title",
+          "label": "商談名",
+          "type": "string",
+          "required": true,
+          "description": "商談の名称"
+        },
+        {
+          "name": "amount",
+          "label": "商談金額",
+          "type": "number",
+          "required": true,
+          "description": "見積金額（円）",
+          "min": 0,
+          "format": "currency"
+        },
+        {
+          "name": "stage",
+          "label": "商談ステージ",
+          "type": "select",
+          "required": true,
+          "description": "商談の進行段階（カンバン表示に対応）",
+          "options": ["見込み", "商談中", "提案中", "成約", "失注"],
+          "defaultValue": "見込み"
+        },
+        {
+          "name": "probability",
+          "label": "見込み度",
+          "type": "number",
+          "required": false,
+          "description": "成約確率（%）",
+          "min": 0,
+          "max": 100,
+          "format": "percentage"
+        },
+        {
+          "name": "expectedCloseDate",
+          "label": "見込み成約日",
+          "type": "date",
+          "required": false,
+          "description": "成約予定日"
+        },
+        {
+          "name": "assignedTo",
+          "label": "担当者",
+          "type": "string",
+          "required": false,
+          "description": "自社の担当者名"
+        },
+        {
+          "name": "startDate",
+          "label": "開始日",
+          "type": "date",
+          "required": true,
+          "description": "商談開始日"
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日",
+          "type": "date",
+          "required": true,
+          "description": "最終更新日（自動更新推奨）",
+          "autoGenerate": true
+        },
+        {
+          "name": "closeDate",
+          "label": "成約日",
+          "type": "date",
+          "required": false,
+          "description": "成約した日付（成約時のみ）"
+        },
+        {
+          "name": "lostReason",
+          "label": "失注理由",
+          "type": "string",
+          "required": false,
+          "description": "失注した場合の理由"
+        },
+        {
+          "name": "notes",
+          "label": "備考",
+          "type": "text",
+          "required": false,
+          "description": "自由記述のメモ"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    },
+    {
+      "name": "activities",
+      "label": "活動履歴",
+      "fields": [
+        {
+          "name": "id",
+          "label": "活動ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "customerId",
+          "label": "顧客ID",
+          "type": "string",
+          "required": true,
+          "description": "顧客マスタの顧客ID",
+          "foreignKey": {
+            "table": "customers",
+            "field": "id"
+          }
+        },
+        {
+          "name": "activityDateTime",
+          "label": "活動日時",
+          "type": "datetime",
+          "required": true,
+          "description": "活動が行われた日時（時分まで記録）"
+        },
+        {
+          "name": "type",
+          "label": "活動種別",
+          "type": "select",
+          "required": true,
+          "description": "活動の種類",
+          "options": ["電話", "メール", "訪問", "会議", "提案", "見積", "その他"],
+          "defaultValue": "電話"
+        },
+        {
+          "name": "title",
+          "label": "活動タイトル",
+          "type": "string",
+          "required": true,
+          "description": "活動のタイトル"
+        },
+        {
+          "name": "description",
+          "label": "活動内容",
+          "type": "text",
+          "required": false,
+          "description": "活動の詳細内容（長文可）"
+        },
+        {
+          "name": "assignedTo",
+          "label": "担当者",
+          "type": "string",
+          "required": false,
+          "description": "活動を行った担当者名"
+        },
+        {
+          "name": "nextAction",
+          "label": "次回アクション",
+          "type": "string",
+          "required": false,
+          "description": "次回の予定アクション"
+        },
+        {
+          "name": "nextActionDate",
+          "label": "次回アクション日",
+          "type": "date",
+          "required": false,
+          "description": "次回アクション予定日"
+        },
+        {
+          "name": "priority",
+          "label": "重要度",
+          "type": "select",
+          "required": false,
+          "description": "活動の重要度",
+          "options": ["高", "中", "低"],
+          "defaultValue": "中"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "customers",
+        "field": "id"
+      },
+      "to": {
+        "table": "deals",
+        "field": "customerId"
+      },
+      "type": "one-to-many",
+      "description": "1顧客に対して複数の商談が存在"
+    },
+    {
+      "from": {
+        "table": "customers",
+        "field": "id"
+      },
+      "to": {
+        "table": "activities",
+        "field": "customerId"
+      },
+      "type": "one-to-many",
+      "description": "1顧客に対して複数の活動履歴が存在"
+    }
+  ]
+}
