@@ -439,7 +439,45 @@ fetch('https://tsubasagit.github.io/AppNavi-asset/api/templates.json')
 - [ ] ローディング状態の表示
 - [ ] テストの実装
 
-## 9. 連絡先
+## 9. インストール済みテンプレートの更新検出
+
+### 概要
+
+既にインストール済みのテンプレート（CRM、ブランクページなど）がある場合、新規アプリ作成時の「方針」タブで「インストール」ボタンではなく「更新」ボタンを表示する必要があります。
+
+### 実装方法
+
+詳細は [テンプレートの更新検出ガイド](./TEMPLATE_UPDATE_DETECTION.md) を参照してください。
+
+**要点**:
+1. インストール済みテンプレートのリストを保持
+2. テンプレート一覧APIから取得したバージョンと比較
+3. バージョンが新しい場合は「更新」ボタンを表示
+4. バージョンが同じ場合は「インストール済み」を表示
+
+**実装例**:
+```typescript
+// インストール済みテンプレートと比較
+const installed = installedTemplates.find(
+  t => t.templateId === template.templateId
+);
+
+if (installed) {
+  const needsUpdate = compareVersions(template.version, installed.version) > 0;
+  if (needsUpdate) {
+    // 「更新」ボタンを表示
+    template.action = 'update';
+  } else {
+    // 「インストール済み」を表示
+    template.action = 'installed';
+  }
+} else {
+  // 「インストール」ボタンを表示
+  template.action = 'install';
+}
+```
+
+## 10. 連絡先
 
 ### 質問・問題報告
 
@@ -451,6 +489,7 @@ fetch('https://tsubasagit.github.io/AppNavi-asset/api/templates.json')
 - [AppNavi-asset開発仕様書](./APPNAVI_INTEGRATION_SPEC.md)
 - [CORSトラブルシューティングガイド](./CORS_TROUBLESHOOTING.md)
 - [実装サマリー](./IMPLEMENTATION_SUMMARY.md)
+- [テンプレートの更新検出ガイド](./TEMPLATE_UPDATE_DETECTION.md)
 
 ---
 
