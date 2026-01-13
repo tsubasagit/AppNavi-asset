@@ -16,11 +16,42 @@ export default function Marketplace() {
   const [previewAsset, setPreviewAsset] = useState<Asset | null>(null)
   const [showPreview, setShowPreview] = useState(false)
 
+  // インストール済みアセットを取得
+  const getInstalledAssetIds = (): string[] => {
+    try {
+      const installedAssets = JSON.parse(
+        localStorage.getItem('installedAssets') || '[]'
+      )
+      return installedAssets.map((a: any) => a.id)
+    } catch {
+      return []
+    }
+  }
+
+  // アセットを並べ替え（インストール済みを先頭に）
+  const sortAssets = (assets: Asset[]): Asset[] => {
+    const installedIds = getInstalledAssetIds()
+    const installed: Asset[] = []
+    const notInstalled: Asset[] = []
+
+    assets.forEach(asset => {
+      if (installedIds.includes(asset.id)) {
+        installed.push(asset)
+      } else {
+        notInstalled.push(asset)
+      }
+    })
+
+    // インストール済みを先頭に、その他を後ろに
+    return [...installed, ...notInstalled]
+  }
+
   useEffect(() => {
     // 実際の実装ではAPIから取得
     console.log('Loading assets...', mockAssets)
-    setAssets(mockAssets)
-    setFilteredAssets(mockAssets)
+    const sortedAssets = sortAssets(mockAssets)
+    setAssets(sortedAssets)
+    setFilteredAssets(sortedAssets)
   }, [])
 
   useEffect(() => {
@@ -45,7 +76,9 @@ export default function Marketplace() {
       filtered = filtered.filter(asset => asset.type === selectedType)
     }
 
-    setFilteredAssets(filtered)
+    // フィルター後もインストール済みを先頭に
+    const sortedFiltered = sortAssets(filtered)
+    setFilteredAssets(sortedFiltered)
   }, [searchQuery, selectedCategory, selectedType, assets])
 
   const categories = Array.from(new Set(assets.map(a => a.category)))
