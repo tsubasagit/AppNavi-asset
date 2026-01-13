@@ -1,9 +1,9 @@
 {
   "id": 1,
   "templateId": "crm",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "name": "顧客管理（CRM）",
-  "description": "顧客情報、商談管理、活動履歴を一元管理",
+  "description": "中小企業向けの本格的なCRMシステム。顧客管理、商談管理、見積書・請求書管理、タスク管理、契約管理、売上分析まで完全対応。月額1000円相当の価値ある機能を提供します。",
   "templateUrl": "/api/templates/crm/apply.json",
   "schemaUrl": "/api/templates/crm/schema.json",
   "viewsUrl": "/api/templates/crm/views.json",
@@ -147,6 +147,15 @@
           "required": true,
           "description": "顧客登録日（自動設定）",
           "autoGenerate": true
+        },
+        {
+          "name": "customerRank",
+          "label": "顧客ランク",
+          "type": "select",
+          "required": false,
+          "description": "顧客の重要度ランク（売上・関係性に基づく分類）",
+          "options": ["VIP", "A", "B", "C", "D"],
+          "defaultValue": "C"
         },
         {
           "name": "notes",
@@ -381,6 +390,553 @@
           "autoGenerate": true
         }
       ]
+    },
+    {
+      "name": "quotes",
+      "label": "見積書管理",
+      "fields": [
+        {
+          "name": "id",
+          "label": "見積書ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "dealId",
+          "label": "商談ID",
+          "type": "string",
+          "required": true,
+          "description": "関連する商談ID",
+          "foreignKey": {
+            "table": "deals",
+            "field": "id"
+          }
+        },
+        {
+          "name": "customerId",
+          "label": "顧客ID",
+          "type": "string",
+          "required": true,
+          "description": "顧客マスタの顧客ID",
+          "foreignKey": {
+            "table": "customers",
+            "field": "id"
+          }
+        },
+        {
+          "name": "quoteNumber",
+          "label": "見積書番号",
+          "type": "string",
+          "required": true,
+          "description": "見積書の管理番号（例: EST-2024-001）",
+          "searchable": true
+        },
+        {
+          "name": "title",
+          "label": "見積書タイトル",
+          "type": "string",
+          "required": true,
+          "description": "見積書のタイトル"
+        },
+        {
+          "name": "amount",
+          "label": "見積金額",
+          "type": "number",
+          "required": true,
+          "description": "見積金額（円）",
+          "min": 0,
+          "format": "currency"
+        },
+        {
+          "name": "taxRate",
+          "label": "消費税率",
+          "type": "number",
+          "required": false,
+          "description": "消費税率（%）",
+          "min": 0,
+          "max": 100,
+          "defaultValue": 10,
+          "format": "percentage"
+        },
+        {
+          "name": "status",
+          "label": "見積ステータス",
+          "type": "select",
+          "required": true,
+          "description": "見積書の状態",
+          "options": ["下書き", "送付済み", "承認待ち", "承認済み", "却下", "失効"],
+          "defaultValue": "下書き"
+        },
+        {
+          "name": "validUntil",
+          "label": "有効期限",
+          "type": "date",
+          "required": false,
+          "description": "見積書の有効期限"
+        },
+        {
+          "name": "issueDate",
+          "label": "発行日",
+          "type": "date",
+          "required": true,
+          "description": "見積書発行日",
+          "autoGenerate": true
+        },
+        {
+          "name": "assignedTo",
+          "label": "担当者",
+          "type": "string",
+          "required": false,
+          "description": "見積書作成担当者"
+        },
+        {
+          "name": "notes",
+          "label": "備考",
+          "type": "text",
+          "required": false,
+          "description": "見積書に関するメモ"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    },
+    {
+      "name": "invoices",
+      "label": "請求書管理",
+      "fields": [
+        {
+          "name": "id",
+          "label": "請求書ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "quoteId",
+          "label": "見積書ID",
+          "type": "string",
+          "required": false,
+          "description": "関連する見積書ID",
+          "foreignKey": {
+            "table": "quotes",
+            "field": "id"
+          }
+        },
+        {
+          "name": "dealId",
+          "label": "商談ID",
+          "type": "string",
+          "required": true,
+          "description": "関連する商談ID",
+          "foreignKey": {
+            "table": "deals",
+            "field": "id"
+          }
+        },
+        {
+          "name": "customerId",
+          "label": "顧客ID",
+          "type": "string",
+          "required": true,
+          "description": "顧客マスタの顧客ID",
+          "foreignKey": {
+            "table": "customers",
+            "field": "id"
+          }
+        },
+        {
+          "name": "invoiceNumber",
+          "label": "請求書番号",
+          "type": "string",
+          "required": true,
+          "description": "請求書の管理番号（例: INV-2024-001）",
+          "searchable": true
+        },
+        {
+          "name": "title",
+          "label": "請求書タイトル",
+          "type": "string",
+          "required": true,
+          "description": "請求書のタイトル"
+        },
+        {
+          "name": "amount",
+          "label": "請求金額",
+          "type": "number",
+          "required": true,
+          "description": "請求金額（円）",
+          "min": 0,
+          "format": "currency"
+        },
+        {
+          "name": "taxAmount",
+          "label": "消費税額",
+          "type": "number",
+          "required": false,
+          "description": "消費税額（円）",
+          "min": 0,
+          "format": "currency"
+        },
+        {
+          "name": "totalAmount",
+          "label": "合計金額",
+          "type": "number",
+          "required": true,
+          "description": "税込合計金額（円）",
+          "min": 0,
+          "format": "currency"
+        },
+        {
+          "name": "status",
+          "label": "請求ステータス",
+          "type": "select",
+          "required": true,
+          "description": "請求書の状態",
+          "options": ["下書き", "送付済み", "確認済み", "入金済み", "一部入金", "延滞", "キャンセル"],
+          "defaultValue": "下書き"
+        },
+        {
+          "name": "issueDate",
+          "label": "発行日",
+          "type": "date",
+          "required": true,
+          "description": "請求書発行日",
+          "autoGenerate": true
+        },
+        {
+          "name": "dueDate",
+          "label": "支払期限",
+          "type": "date",
+          "required": true,
+          "description": "支払期限日"
+        },
+        {
+          "name": "paidDate",
+          "label": "入金日",
+          "type": "date",
+          "required": false,
+          "description": "入金確認日"
+        },
+        {
+          "name": "paymentMethod",
+          "label": "支払方法",
+          "type": "select",
+          "required": false,
+          "description": "支払方法",
+          "options": ["銀行振込", "クレジットカード", "現金", "小切手", "その他"]
+        },
+        {
+          "name": "assignedTo",
+          "label": "担当者",
+          "type": "string",
+          "required": false,
+          "description": "請求書作成担当者"
+        },
+        {
+          "name": "notes",
+          "label": "備考",
+          "type": "text",
+          "required": false,
+          "description": "請求書に関するメモ"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    },
+    {
+      "name": "tasks",
+      "label": "タスク管理",
+      "fields": [
+        {
+          "name": "id",
+          "label": "タスクID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "customerId",
+          "label": "顧客ID",
+          "type": "string",
+          "required": false,
+          "description": "関連する顧客ID",
+          "foreignKey": {
+            "table": "customers",
+            "field": "id"
+          }
+        },
+        {
+          "name": "dealId",
+          "label": "商談ID",
+          "type": "string",
+          "required": false,
+          "description": "関連する商談ID",
+          "foreignKey": {
+            "table": "deals",
+            "field": "id"
+          }
+        },
+        {
+          "name": "title",
+          "label": "タスク名",
+          "type": "string",
+          "required": true,
+          "description": "タスクのタイトル",
+          "searchable": true
+        },
+        {
+          "name": "description",
+          "label": "タスク内容",
+          "type": "text",
+          "required": false,
+          "description": "タスクの詳細説明"
+        },
+        {
+          "name": "status",
+          "label": "ステータス",
+          "type": "select",
+          "required": true,
+          "description": "タスクの状態",
+          "options": ["未着手", "進行中", "完了", "保留", "キャンセル"],
+          "defaultValue": "未着手"
+        },
+        {
+          "name": "priority",
+          "label": "優先度",
+          "type": "select",
+          "required": true,
+          "description": "タスクの優先度",
+          "options": ["高", "中", "低"],
+          "defaultValue": "中"
+        },
+        {
+          "name": "dueDate",
+          "label": "期限日",
+          "type": "date",
+          "required": false,
+          "description": "タスクの期限日"
+        },
+        {
+          "name": "dueTime",
+          "label": "期限時刻",
+          "type": "time",
+          "required": false,
+          "description": "タスクの期限時刻"
+        },
+        {
+          "name": "assignedTo",
+          "label": "担当者",
+          "type": "string",
+          "required": true,
+          "description": "タスクの担当者名"
+        },
+        {
+          "name": "completedDate",
+          "label": "完了日",
+          "type": "date",
+          "required": false,
+          "description": "タスク完了日"
+        },
+        {
+          "name": "estimatedHours",
+          "label": "見積工数（時間）",
+          "type": "number",
+          "required": false,
+          "description": "タスクの見積工数",
+          "min": 0
+        },
+        {
+          "name": "actualHours",
+          "label": "実績工数（時間）",
+          "type": "number",
+          "required": false,
+          "description": "タスクの実績工数",
+          "min": 0
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
+    },
+    {
+      "name": "contracts",
+      "label": "契約管理",
+      "fields": [
+        {
+          "name": "id",
+          "label": "契約ID",
+          "type": "string",
+          "required": true,
+          "primaryKey": true,
+          "autoGenerate": true,
+          "description": "一意の識別子（自動生成推奨）"
+        },
+        {
+          "name": "dealId",
+          "label": "商談ID",
+          "type": "string",
+          "required": true,
+          "description": "関連する商談ID",
+          "foreignKey": {
+            "table": "deals",
+            "field": "id"
+          }
+        },
+        {
+          "name": "customerId",
+          "label": "顧客ID",
+          "type": "string",
+          "required": true,
+          "description": "顧客マスタの顧客ID",
+          "foreignKey": {
+            "table": "customers",
+            "field": "id"
+          }
+        },
+        {
+          "name": "contractNumber",
+          "label": "契約番号",
+          "type": "string",
+          "required": true,
+          "description": "契約の管理番号（例: CNT-2024-001）",
+          "searchable": true
+        },
+        {
+          "name": "title",
+          "label": "契約名",
+          "type": "string",
+          "required": true,
+          "description": "契約のタイトル"
+        },
+        {
+          "name": "contractType",
+          "label": "契約種別",
+          "type": "select",
+          "required": true,
+          "description": "契約の種類",
+          "options": ["新規", "更新", "追加", "変更", "解約"],
+          "defaultValue": "新規"
+        },
+        {
+          "name": "amount",
+          "label": "契約金額",
+          "type": "number",
+          "required": true,
+          "description": "契約金額（円）",
+          "min": 0,
+          "format": "currency"
+        },
+        {
+          "name": "billingCycle",
+          "label": "請求サイクル",
+          "type": "select",
+          "required": true,
+          "description": "請求の頻度",
+          "options": ["月額", "年額", "一回限り", "その他"],
+          "defaultValue": "月額"
+        },
+        {
+          "name": "startDate",
+          "label": "契約開始日",
+          "type": "date",
+          "required": true,
+          "description": "契約開始日"
+        },
+        {
+          "name": "endDate",
+          "label": "契約終了日",
+          "type": "date",
+          "required": false,
+          "description": "契約終了日（自動更新契約の場合は空欄）"
+        },
+        {
+          "name": "autoRenewal",
+          "label": "自動更新",
+          "type": "boolean",
+          "required": false,
+          "description": "自動更新フラグ",
+          "defaultValue": false
+        },
+        {
+          "name": "status",
+          "label": "契約ステータス",
+          "type": "select",
+          "required": true,
+          "description": "契約の状態",
+          "options": ["契約前", "有効", "一時停止", "解約済み", "失効"],
+          "defaultValue": "契約前"
+        },
+        {
+          "name": "assignedTo",
+          "label": "担当者",
+          "type": "string",
+          "required": false,
+          "description": "契約管理担当者"
+        },
+        {
+          "name": "notes",
+          "label": "備考",
+          "type": "text",
+          "required": false,
+          "description": "契約に関するメモ"
+        },
+        {
+          "name": "createdAt",
+          "label": "作成日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "更新日時",
+          "type": "timestamp",
+          "required": true,
+          "autoGenerate": true
+        }
+      ]
     }
   ],
   "relationships": [
@@ -407,6 +963,114 @@
       },
       "type": "one-to-many",
       "description": "1顧客に対して複数の活動履歴が存在"
+    },
+    {
+      "from": {
+        "table": "deals",
+        "field": "id"
+      },
+      "to": {
+        "table": "quotes",
+        "field": "dealId"
+      },
+      "type": "one-to-many",
+      "description": "1商談に対して複数の見積書が存在"
+    },
+    {
+      "from": {
+        "table": "customers",
+        "field": "id"
+      },
+      "to": {
+        "table": "quotes",
+        "field": "customerId"
+      },
+      "type": "one-to-many",
+      "description": "1顧客に対して複数の見積書が存在"
+    },
+    {
+      "from": {
+        "table": "quotes",
+        "field": "id"
+      },
+      "to": {
+        "table": "invoices",
+        "field": "quoteId"
+      },
+      "type": "one-to-one",
+      "description": "1見積書から1請求書が生成される"
+    },
+    {
+      "from": {
+        "table": "deals",
+        "field": "id"
+      },
+      "to": {
+        "table": "invoices",
+        "field": "dealId"
+      },
+      "type": "one-to-many",
+      "description": "1商談に対して複数の請求書が存在"
+    },
+    {
+      "from": {
+        "table": "customers",
+        "field": "id"
+      },
+      "to": {
+        "table": "invoices",
+        "field": "customerId"
+      },
+      "type": "one-to-many",
+      "description": "1顧客に対して複数の請求書が存在"
+    },
+    {
+      "from": {
+        "table": "customers",
+        "field": "id"
+      },
+      "to": {
+        "table": "tasks",
+        "field": "customerId"
+      },
+      "type": "one-to-many",
+      "description": "1顧客に対して複数のタスクが存在"
+    },
+    {
+      "from": {
+        "table": "deals",
+        "field": "id"
+      },
+      "to": {
+        "table": "tasks",
+        "field": "dealId"
+      },
+      "type": "one-to-many",
+      "description": "1商談に対して複数のタスクが存在"
+    },
+    {
+      "from": {
+        "table": "deals",
+        "field": "id"
+      },
+      "to": {
+        "table": "contracts",
+        "field": "dealId"
+      },
+      "type": "one-to-many",
+      "description": "1商談に対して複数の契約が存在"
+    },
+    {
+      "from": {
+        "table": "customers",
+        "field": "id"
+      },
+      "to": {
+        "table": "contracts",
+        "field": "customerId"
+      },
+      "type": "one-to-many",
+      "description": "1顧客に対して複数の契約が存在"
     }
   ]
 }

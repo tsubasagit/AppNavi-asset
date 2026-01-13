@@ -1,6 +1,6 @@
 {
   "templateId": "crm",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "views": [
     {
       "id": "dashboard",
@@ -111,6 +111,131 @@
             }
           },
           "colSpan": 4
+        },
+        {
+          "id": "monthly-revenue",
+          "type": "stat",
+          "label": "今月の売上",
+          "query": {
+            "table": "invoices",
+            "aggregation": "sum",
+            "field": "totalAmount",
+            "filter": {
+              "status": "入金済み",
+              "paidDate": {
+                "$gte": "今月初日"
+              }
+            }
+          },
+          "icon": "yen-sign",
+          "color": "#10b981",
+          "colSpan": 3,
+          "format": "currency"
+        },
+        {
+          "id": "pending-invoices",
+          "type": "stat",
+          "label": "未入金請求額",
+          "query": {
+            "table": "invoices",
+            "aggregation": "sum",
+            "field": "totalAmount",
+            "filter": {
+              "status": {
+                "$in": ["送付済み", "確認済み", "一部入金"]
+              }
+            }
+          },
+          "icon": "alert-circle",
+          "color": "#ef4444",
+          "colSpan": 3,
+          "format": "currency"
+        },
+        {
+          "id": "active-quotes",
+          "type": "stat",
+          "label": "有効見積書数",
+          "query": {
+            "table": "quotes",
+            "aggregation": "count",
+            "filter": {
+              "status": {
+                "$in": ["送付済み", "承認待ち"]
+              },
+              "validUntil": {
+                "$gte": "今日"
+              }
+            }
+          },
+          "icon": "file-text",
+          "color": "#3b82f6",
+          "colSpan": 3
+        },
+        {
+          "id": "overdue-tasks",
+          "type": "stat",
+          "label": "期限超過タスク",
+          "query": {
+            "table": "tasks",
+            "aggregation": "count",
+            "filter": {
+              "status": {
+                "$in": ["未着手", "進行中"]
+              },
+              "dueDate": {
+                "$lt": "今日"
+              }
+            }
+          },
+          "icon": "clock",
+          "color": "#f59e0b",
+          "colSpan": 3
+        },
+        {
+          "id": "revenue-forecast",
+          "type": "chart",
+          "label": "売上予測（今月・来月）",
+          "chartType": "bar",
+          "query": {
+            "table": "deals",
+            "groupBy": "expectedCloseDate",
+            "aggregation": "sum",
+            "field": "amount",
+            "filter": {
+              "stage": {
+                "$in": ["商談中", "提案中"]
+              },
+              "expectedCloseDate": {
+                "$gte": "今月初日",
+                "$lte": "来月末日"
+              }
+            }
+          },
+          "colSpan": 6
+        },
+        {
+          "id": "customer-rank-distribution",
+          "type": "chart",
+          "label": "顧客ランク分布",
+          "chartType": "pie",
+          "query": {
+            "table": "customers",
+            "groupBy": "customerRank",
+            "aggregation": "count"
+          },
+          "colSpan": 3
+        },
+        {
+          "id": "invoice-status-chart",
+          "type": "chart",
+          "label": "請求書ステータス分布",
+          "chartType": "doughnut",
+          "query": {
+            "table": "invoices",
+            "groupBy": "status",
+            "aggregation": "count"
+          },
+          "colSpan": 3
         },
         {
           "id": "recent-activities",
@@ -522,6 +647,582 @@
             "field": "activityDateTime",
             "order": "desc"
           }
+        }
+      ]
+    },
+    {
+      "id": "quotes-list",
+      "name": "見積書一覧",
+      "type": "table",
+      "route": "/quotes",
+      "table": "quotes",
+      "searchable": true,
+      "searchFields": ["quoteNumber", "title"],
+      "columns": [
+        {
+          "field": "quoteNumber",
+          "label": "見積書番号",
+          "width": 150,
+          "sortable": true
+        },
+        {
+          "field": "title",
+          "label": "タイトル",
+          "width": 200,
+          "sortable": true
+        },
+        {
+          "field": "customerId",
+          "label": "顧客",
+          "width": 150,
+          "relation": {
+            "table": "customers",
+            "field": "company"
+          }
+        },
+        {
+          "field": "amount",
+          "label": "見積金額",
+          "width": 120,
+          "sortable": true,
+          "format": "currency"
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "issueDate",
+          "label": "発行日",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "validUntil",
+          "label": "有効期限",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "assignedTo",
+          "label": "担当者",
+          "width": 120,
+          "sortable": true
+        }
+      ],
+      "filters": [
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        },
+        {
+          "field": "assignedTo",
+          "type": "select",
+          "label": "担当者"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規見積書作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        },
+        {
+          "type": "view",
+          "label": "詳細",
+          "route": "/quotes/:id"
+        }
+      ],
+      "defaultSort": {
+        "field": "issueDate",
+        "order": "desc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    },
+    {
+      "id": "invoices-list",
+      "name": "請求書一覧",
+      "type": "table",
+      "route": "/invoices",
+      "table": "invoices",
+      "searchable": true,
+      "searchFields": ["invoiceNumber", "title"],
+      "columns": [
+        {
+          "field": "invoiceNumber",
+          "label": "請求書番号",
+          "width": 150,
+          "sortable": true
+        },
+        {
+          "field": "title",
+          "label": "タイトル",
+          "width": 200,
+          "sortable": true
+        },
+        {
+          "field": "customerId",
+          "label": "顧客",
+          "width": 150,
+          "relation": {
+            "table": "customers",
+            "field": "company"
+          }
+        },
+        {
+          "field": "totalAmount",
+          "label": "請求金額",
+          "width": 120,
+          "sortable": true,
+          "format": "currency"
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "issueDate",
+          "label": "発行日",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "dueDate",
+          "label": "支払期限",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "paidDate",
+          "label": "入金日",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        }
+      ],
+      "filters": [
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        },
+        {
+          "field": "assignedTo",
+          "type": "select",
+          "label": "担当者"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規請求書作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        },
+        {
+          "type": "view",
+          "label": "詳細",
+          "route": "/invoices/:id"
+        }
+      ],
+      "defaultSort": {
+        "field": "issueDate",
+        "order": "desc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    },
+    {
+      "id": "tasks-list",
+      "name": "タスク管理",
+      "type": "table",
+      "route": "/tasks",
+      "table": "tasks",
+      "searchable": true,
+      "searchFields": ["title", "description"],
+      "columns": [
+        {
+          "field": "title",
+          "label": "タスク名",
+          "width": 250,
+          "sortable": true
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 100,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "priority",
+          "label": "優先度",
+          "width": 100,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "customerId",
+          "label": "顧客",
+          "width": 150,
+          "relation": {
+            "table": "customers",
+            "field": "company"
+          }
+        },
+        {
+          "field": "assignedTo",
+          "label": "担当者",
+          "width": 120,
+          "sortable": true
+        },
+        {
+          "field": "dueDate",
+          "label": "期限日",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "dueTime",
+          "label": "期限時刻",
+          "width": 100,
+          "format": "time"
+        },
+        {
+          "field": "completedDate",
+          "label": "完了日",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        }
+      ],
+      "filters": [
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        },
+        {
+          "field": "priority",
+          "type": "select",
+          "label": "優先度"
+        },
+        {
+          "field": "assignedTo",
+          "type": "select",
+          "label": "担当者"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規タスク作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        },
+        {
+          "type": "complete",
+          "label": "完了"
+        }
+      ],
+      "defaultSort": {
+        "field": "dueDate",
+        "order": "asc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    },
+    {
+      "id": "contracts-list",
+      "name": "契約管理",
+      "type": "table",
+      "route": "/contracts",
+      "table": "contracts",
+      "searchable": true,
+      "searchFields": ["contractNumber", "title"],
+      "columns": [
+        {
+          "field": "contractNumber",
+          "label": "契約番号",
+          "width": 150,
+          "sortable": true
+        },
+        {
+          "field": "title",
+          "label": "契約名",
+          "width": 200,
+          "sortable": true
+        },
+        {
+          "field": "customerId",
+          "label": "顧客",
+          "width": 150,
+          "relation": {
+            "table": "customers",
+            "field": "company"
+          }
+        },
+        {
+          "field": "contractType",
+          "label": "契約種別",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "amount",
+          "label": "契約金額",
+          "width": 120,
+          "sortable": true,
+          "format": "currency"
+        },
+        {
+          "field": "billingCycle",
+          "label": "請求サイクル",
+          "width": 100,
+          "sortable": true
+        },
+        {
+          "field": "status",
+          "label": "ステータス",
+          "width": 120,
+          "sortable": true,
+          "render": "badge"
+        },
+        {
+          "field": "startDate",
+          "label": "開始日",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "endDate",
+          "label": "終了日",
+          "width": 120,
+          "sortable": true,
+          "format": "date"
+        },
+        {
+          "field": "autoRenewal",
+          "label": "自動更新",
+          "width": 100,
+          "render": "badge"
+        }
+      ],
+      "filters": [
+        {
+          "field": "status",
+          "type": "select",
+          "label": "ステータス"
+        },
+        {
+          "field": "contractType",
+          "type": "select",
+          "label": "契約種別"
+        },
+        {
+          "field": "billingCycle",
+          "type": "select",
+          "label": "請求サイクル"
+        }
+      ],
+      "actions": [
+        {
+          "type": "create",
+          "label": "新規契約作成"
+        },
+        {
+          "type": "edit",
+          "label": "編集"
+        },
+        {
+          "type": "delete",
+          "label": "削除"
+        },
+        {
+          "type": "view",
+          "label": "詳細",
+          "route": "/contracts/:id"
+        }
+      ],
+      "defaultSort": {
+        "field": "startDate",
+        "order": "desc"
+      },
+      "pagination": {
+        "pageSize": 20
+      }
+    },
+    {
+      "id": "sales-report",
+      "name": "売上分析レポート",
+      "type": "dashboard",
+      "route": "/reports/sales",
+      "layout": "grid",
+      "columns": 12,
+      "widgets": [
+        {
+          "id": "total-revenue",
+          "type": "stat",
+          "label": "総売上",
+          "query": {
+            "table": "invoices",
+            "aggregation": "sum",
+            "field": "totalAmount",
+            "filter": {
+              "status": "入金済み"
+            }
+          },
+          "icon": "trending-up",
+          "color": "#10b981",
+          "colSpan": 4,
+          "format": "currency"
+        },
+        {
+          "id": "monthly-revenue-growth",
+          "type": "stat",
+          "label": "月次売上成長率",
+          "query": {
+            "table": "invoices",
+            "aggregation": "percentage",
+            "field": "totalAmount",
+            "filter": {
+              "status": "入金済み"
+            }
+          },
+          "icon": "percent",
+          "color": "#3b82f6",
+          "colSpan": 4,
+          "format": "percentage"
+        },
+        {
+          "id": "average-deal-size",
+          "type": "stat",
+          "label": "平均商談金額",
+          "query": {
+            "table": "deals",
+            "aggregation": "avg",
+            "field": "amount",
+            "filter": {
+              "stage": "成約"
+            }
+          },
+          "icon": "dollar-sign",
+          "color": "#f59e0b",
+          "colSpan": 4,
+          "format": "currency"
+        },
+        {
+          "id": "revenue-by-month",
+          "type": "chart",
+          "label": "月次売上推移",
+          "chartType": "line",
+          "query": {
+            "table": "invoices",
+            "groupBy": "paidDate",
+            "aggregation": "sum",
+            "field": "totalAmount",
+            "filter": {
+              "status": "入金済み"
+            }
+          },
+          "colSpan": 6
+        },
+        {
+          "id": "revenue-by-customer-rank",
+          "type": "chart",
+          "label": "顧客ランク別売上",
+          "chartType": "bar",
+          "query": {
+            "table": "invoices",
+            "join": {
+              "table": "customers",
+              "on": "customerId"
+            },
+            "groupBy": "customerRank",
+            "aggregation": "sum",
+            "field": "totalAmount",
+            "filter": {
+              "status": "入金済み"
+            }
+          },
+          "colSpan": 6
+        },
+        {
+          "id": "top-customers",
+          "type": "list",
+          "label": "上位顧客（売上順）",
+          "query": {
+            "table": "invoices",
+            "join": {
+              "table": "customers",
+              "on": "customerId"
+            },
+            "groupBy": "customerId",
+            "aggregation": "sum",
+            "field": "totalAmount",
+            "filter": {
+              "status": "入金済み"
+            },
+            "limit": 10,
+            "sort": {
+              "field": "totalAmount",
+              "order": "desc"
+            }
+          },
+          "fields": [
+            {
+              "field": "company",
+              "label": "会社名"
+            },
+            {
+              "field": "customerRank",
+              "label": "ランク",
+              "render": "badge"
+            },
+            {
+              "field": "totalAmount",
+              "label": "売上",
+              "format": "currency"
+            }
+          ],
+          "colSpan": 12
         }
       ]
     }
