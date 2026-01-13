@@ -2,6 +2,51 @@ import { Asset } from '../types'
 
 export const mockAssets: Asset[] = [
   {
+    id: 'blank-page',
+    name: 'ブランクページ',
+    description: 'シンプルで柔軟な、カスタマイズ可能なテンプレート。最小限の構造で、自由にカスタマイズして独自のアプリケーションを作成できます。',
+    type: 'template',
+    category: '基本テンプレート',
+    vendor: {
+      id: 'apptalent',
+      name: 'AppNavi Team',
+      avatar: 'https://ui-avatars.com/api/?name=AppNavi+Team'
+    },
+    version: '1.0.0',
+    price: 0,
+    priceType: 'free',
+    screenshots: [
+      'https://via.placeholder.com/800x600/64748b/ffffff?text=Blank+Page+Template'
+    ],
+    demoUrl: '/templates/blank-page/',
+    readme: `
+# ブランクページテンプレート
+
+## 概要
+シンプルで柔軟な、カスタマイズ可能なテンプレートです。
+
+## 含まれる機能
+- 📄 最小限の構造
+- ✏️ 自由にカスタマイズ可能
+- 📋 基本的なページレイアウト
+- 🎨 シンプルで軽量
+
+## セットアップ
+テンプレートをインポートして、すぐに使用を開始できます。
+
+## ライセンス
+MIT License
+    `,
+    tags: ['基本', 'シンプル', 'カスタマイズ', 'ブランク'],
+    downloads: 123,
+    rating: 4.0,
+    reviews: [],
+    createdAt: '2024-12-29T00:00:00Z',
+    updatedAt: '2024-12-29T00:00:00Z',
+    githubUrl: 'https://github.com/tsubasagit/AppNavi-asset',
+    dependencies: []
+  },
+  {
     id: 'crm',
     name: '顧客管理（CRM）',
     description: '顧客情報、商談管理、活動履歴を一元管理。営業ダッシュボード、商談パイプライン、活動履歴タイムラインを含む完全なCRMシステムです。',
@@ -187,51 +232,6 @@ MIT License
     reviews: [],
     createdAt: '2024-01-01T00:00:00Z',
     updatedAt: '2024-01-01T00:00:00Z',
-    githubUrl: 'https://github.com/tsubasagit/AppNavi-asset',
-    dependencies: []
-  },
-  {
-    id: 'blank-page',
-    name: 'ブランクページ',
-    description: 'シンプルで柔軟な、カスタマイズ可能なテンプレート。最小限の構造で、自由にカスタマイズして独自のアプリケーションを作成できます。',
-    type: 'template',
-    category: '基本テンプレート',
-    vendor: {
-      id: 'apptalent',
-      name: 'AppNavi Team',
-      avatar: 'https://ui-avatars.com/api/?name=AppNavi+Team'
-    },
-    version: '1.0.0',
-    price: 0,
-    priceType: 'free',
-    screenshots: [
-      'https://via.placeholder.com/800x600/64748b/ffffff?text=Blank+Page+Template'
-    ],
-    demoUrl: '/templates/blank-page/',
-    readme: `
-# ブランクページテンプレート
-
-## 概要
-シンプルで柔軟な、カスタマイズ可能なテンプレートです。
-
-## 含まれる機能
-- 📄 最小限の構造
-- ✏️ 自由にカスタマイズ可能
-- 📋 基本的なページレイアウト
-- 🎨 シンプルで軽量
-
-## セットアップ
-テンプレートをインポートして、すぐに使用を開始できます。
-
-## ライセンス
-MIT License
-    `,
-    tags: ['基本', 'シンプル', 'カスタマイズ', 'ブランク'],
-    downloads: 123,
-    rating: 4.0,
-    reviews: [],
-    createdAt: '2024-12-29T00:00:00Z',
-    updatedAt: '2024-12-29T00:00:00Z',
     githubUrl: 'https://github.com/tsubasagit/AppNavi-asset',
     dependencies: []
   }
