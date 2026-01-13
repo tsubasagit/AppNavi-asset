@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AppNavi Template Schema",
+  "description": "テンプレートのスキーマ定義（schema.json）の検証用スキーマ",
+  "type": "object",
+  "required": ["templateId", "version", "tables"],
+  "properties": {
+    "id": {
+      "type": "number",
+      "description": "テンプレートID（オプション）"
+    },
+    "templateId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "テンプレートの一意の識別子（英数字とハイフンのみ）"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+",
+      "description": "バージョン番号（セマンティックバージョニング）"
+    },
+    "name": {
+      "type": "string",
+      "description": "テンプレート名"
+    },
+    "description": {
+      "type": "string",
+      "description": "テンプレートの説明"
+    },
+    "tables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "label", "fields"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "テーブル名（英数字とアンダースコアのみ）"
+          },
+          "label": {
+            "type": "string",
+            "description": "テーブルの表示名"
+          },
+          "fields": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["name", "type"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$",
+                  "description": "フィールド名（英数字とアンダースコアのみ）"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["string", "number", "date", "boolean", "reference", "json"],
+                  "description": "フィールドの型"
+                },
+                "label": {
+                  "type": "string",
+                  "description": "フィールドの表示名"
+                },
+                "required": {
+                  "type": "boolean",
+                  "description": "必須フィールドかどうか"
+                },
+                "primaryKey": {
+                  "type": "boolean",
+                  "description": "プライマリキーかどうか"
+                },
+                "autoGenerate": {
+                  "type": "boolean",
+                  "description": "自動生成されるかどうか"
+                },
+                "searchable": {
+                  "type": "boolean",
+                  "description": "検索可能かどうか"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "フィールドの説明"
+                },
+                "defaultValue": {
+                  "description": "デフォルト値（型に応じて任意）"
+                },
+                "reference": {
+                  "type": "object",
+                  "properties": {
+                    "table": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9_]+$"
+                    },
+                    "field": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9_]+$"
+                    }
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,205 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AppNavi Template Views",
+  "description": "テンプレートのビュー定義（views.json）の検証用スキーマ",
+  "type": "object",
+  "required": ["templateId", "version", "views"],
+  "properties": {
+    "templateId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "テンプレートの一意の識別子"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+",
+      "description": "バージョン番号"
+    },
+    "views": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "route"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "ビューの一意の識別子"
+          },
+          "name": {
+            "type": "string",
+            "description": "ビューの表示名"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["dashboard", "table", "kanban", "detail"],
+            "description": "ビューのタイプ"
+          },
+          "route": {
+            "type": "string",
+            "pattern": "^/",
+            "description": "ビューのルートパス"
+          },
+          "table": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "関連するテーブル名（table/kanban/detailタイプの場合）"
+          },
+          "layout": {
+            "type": "string",
+            "enum": ["grid", "list"],
+            "description": "レイアウトタイプ（dashboardの場合）"
+          },
+          "columns": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 12,
+            "description": "グリッドの列数（dashboardの場合）"
+          },
+          "widgets": {
+            "type": "array",
+            "description": "ウィジェットの配列（dashboardの場合）",
+            "items": {
+              "type": "object",
+              "required": ["id", "type"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["stat", "chart", "table", "list"]
+                },
+                "label": { "type": "string" },
+                "query": {
+                  "type": "object",
+                  "properties": {
+                    "table": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9_]+$"
+                    },
+                    "aggregation": {
+                      "type": "string",
+                      "enum": ["count", "sum", "avg", "min", "max"]
+                    },
+                    "filter": { "type": "object" }
+                  }
+                },
+                "colSpan": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 12
+                }
+              }
+            }
+          },
+          "columns": {
+            "type": "array",
+            "description": "カラムの配列（tableタイプの場合）",
+            "items": {
+              "type": "object",
+              "required": ["field", "label"],
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$"
+                },
+                "label": { "type": "string" },
+                "type": {
+                  "type": "string",
+                  "enum": ["text", "number", "date", "boolean", "reference"]
+                },
+                "sortable": { "type": "boolean" },
+                "filterable": { "type": "boolean" }
+              }
+            }
+          },
+          "stages": {
+            "type": "array",
+            "description": "ステージの配列（kanbanタイプの場合）",
+            "items": {
+              "type": "object",
+              "required": ["id", "name"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$"
+                },
+                "name": { "type": "string" },
+                "color": { "type": "string" }
+              }
+            }
+          },
+          "searchable": {
+            "type": "boolean",
+            "description": "検索可能かどうか"
+          },
+          "searchFields": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_]+$"
+            }
+          },
+          "filters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["text", "number", "date", "select"]
+                }
+              }
+            }
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$"
+                },
+                "label": { "type": "string" },
+                "type": {
+                  "type": "string",
+                  "enum": ["create", "edit", "delete", "export"]
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "enabled": { "type": "boolean" },
+              "pageSize": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "primaryColor": { "type": "string" },
+        "secondaryColor": { "type": "string" },
+        "fontFamily": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
